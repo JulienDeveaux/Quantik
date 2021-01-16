@@ -4,7 +4,7 @@ include "PieceQuantik.php";
 
 class PlateauQuantik
 {
-     public const NBROWS = 4;
+    public const NBROWS = 4;
     public const NBCOLS = 4;
     public const NW = 0;
     public const NE = 1;
@@ -23,58 +23,81 @@ class PlateauQuantik
     }
 
     public function getRow(int $numRow):PieceQuantik{
-
+        for ($i = 0; $i < 4; $i++){
+            $resultat = $this->cases[$numRow][$i];
+        }
+        return $resultat;
     }
 
-    public function getCol(int $numCol):PieceQuantik{
 
+    public function getCol(int $numCol):PieceQuantik{
+        for ($i = 0; $i < 4; $i++){
+            $resultat = $this->cases[$i][$numCol];
+        }
+        return $resultat;
     }
 
     public function getCorner(int $dir):PieceQuantik{
 
         switch($dir){
             case(self::NW) :
-                $formI = 0;
-                $formJ = 0;
+                $fromI = 0;
+                $fromJ = 0;
                 $toI = self::NBCOLS / 2;
                 $toJ = self::NBROWS / 2;
                 break;
 
             case(self::NE) :
-                $formI = 1;
-                $formJ = 0;
+                $fromI = 1;
+                $fromJ = 0;
                 $toI = self::NBCOLS /2;
                 $toJ = self::NBROWS;
             break;
 
             case(self::SW) :
-                $formI = 0;
-                $formJ = 1;
+                $fromI = 0;
+                $fromJ = 1;
                 $toI = self::NBCOLS;
                 $toJ = self::NBROWS /2;
             break;
 
             case(self::SE):
-                $formI = 1;
-                $formJ = 1;
+                $fromI = 1;
+                $fromJ = 1;
                 $toI = self::NBCOLS;
                 $toJ = self::NBROWS;
             break;
 
         }
 
-        for($i = $formI, $i < $toI ; $i++) {
-            for($j = $formJ, $j < $toJ ; $j++) {
-
+        for($i = $fromI; $i < $toI ; $i++) {
+            for($j = $fromJ; $j < $toJ ; $j++) {
+                $resultat[$i] = $this->cases[$fromI][$fromJ];
             }
         }
-    }
-
-    public function __toString():string{
 
     }
+
+  public function __toString():String{
+      $s = $this->cases;
+      return $s;
+  }
 
     public function getCornerFromCoord(int $rowNum, int $colNum):int{
+        if($rowNum <= 2 && $colNum <= 2){
+            return self::NW;
+        }
+        if($rowNum <= 2 && $colNum >= 3){
+            return self::NE;
+        }
+
+        if($rowNum >= 3 && $colNum <= 2){
+            return self::SW;
+        }
+
+        if($rowNum >= 3 && $colNum <= 2){
+            return self::SE;
+        }
 
     }
 

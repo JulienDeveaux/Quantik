@@ -26,7 +26,8 @@ class PieceQuantik
         return $this->couleur;
     }
     public function __toString():string{
-
+        $s = $this->couleur + " " + $this->forme;
+        return $s;
     }
     public static function initVoid():PieceQuantik{
         return new PieceQuantik(self::VOID, self::WHITE);
