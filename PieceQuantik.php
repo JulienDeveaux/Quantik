@@ -26,7 +26,23 @@ class PieceQuantik
         return $this->couleur;
     }
     public function __toString():string{
-        $s = $this->couleur + " " + $this->forme;
+        if($this->couleur == 0) {
+            $c = 'Blanc';
+        } else {
+            $c = 'Noir';
+        }
+        if($this->forme == 0){
+            $f = 'Vide';
+        } else if($this->forme == 1) {
+            $f = 'Cube';
+        } else if($this->forme == 2) {
+            $f = 'Cone';
+        } else if($this->forme == 3) {
+            $f = 'Cylindre';
+        } else {
+            $f = 'Sphere';
+        }
+        $s = $f." ".$c;
         return $s;
     }
     public static function initVoid():PieceQuantik{
@@ -63,3 +79,4 @@ class PieceQuantik
         return new PieceQuantik(self::SPHERE,self::BLACK);
     }
 }
+?>
