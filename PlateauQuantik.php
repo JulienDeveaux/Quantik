@@ -13,7 +13,7 @@ class PlateauQuantik
   protected array $cases;
 
   public  function __construct(){
-     $this->cases = array(array(0,0,0,0),array(0,0,0,0),array(0,0,0,0),array(0,0,0,0));
+     $this->cases = array(array(PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid()),array(PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid()),array(PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid()),array(PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid()));
  }
  public function getPiece(int $rowNum, int $colNum):PieceQuantik{
     return $this->cases[$rowNum][$colNum];
@@ -39,6 +39,7 @@ public function getCol(int $numCol):PieceQuantik{
 
 public function getCorner(int $dir):PieceQuantik{
 
+    //manque le return /!\
     switch($dir){
       case(self::NW) :
       $fromI = 0;
