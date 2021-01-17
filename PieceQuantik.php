@@ -31,7 +31,10 @@ class PieceQuantik
         } else {
             $c = 'Noir';
         }
-        if($this->forme == 0){
+        if($this->forme == 0 && $c == 'Blanc'){
+            $f = 'Vide';
+            $c = '';
+        } else if($this->forme == 0) {
             $f = 'Vide';
         } else if($this->forme == 1) {
             $f = 'Cube';
@@ -39,10 +42,10 @@ class PieceQuantik
             $f = 'Cone';
         } else if($this->forme == 3) {
             $f = 'Cylindre';
-        } else {
+        } else if($this->forme == 4){
             $f = 'Sphere';
         }
-        $s = $f." ".$c;
+        $s = '<p>'.$f." ".$c.'</p>';
         return $s;
     }
     public static function initVoid():PieceQuantik{
