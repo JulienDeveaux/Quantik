@@ -17,8 +17,8 @@
 	$coneBlanc = PieceQuantik::initWhiteCone();
 	$coneNoir = PieceQuantik::initBlackCone();
     $cylindreBlanc= PieceQuantik::initWhiteCylindre();
-	$cylindreNoir = PieceQuantik::initBlackCylindre();
-	$sphereBlanc = PieceQuantik::initWhiteSphere();
+    $cylindreNoir = PieceQuantik::initBlackCylindre();
+    $sphereBlanc = PieceQuantik::initWhiteSphere();
     $sphereNoir = PieceQuantik::initBlackSphere();
 
 	/*$var->setPiece(0, 0, $cubeBlanc);
@@ -35,7 +35,6 @@
 	//echo $var;
 	$action = new ActionQuantik($tab);
 	if(	$action->isValidePose(0, 0, $cubeBlanc)){
-
         $action->posePiece(0, 0, $cubeBlanc);
     }
     if($action->isRowWin(0) or $action->isColWin(0) or $action->isCornerWin(0)){
@@ -48,7 +47,6 @@
         }
     };
     if(	$action->isValidePose(1, 1, $cubeNoir)){
-        echo"steh";
         $action->posePiece(1, 1, $cubeNoir);
     }
     if($action->isRowWin(0) or $action->isColWin(0) or $action->isCornerWin(0)){
@@ -61,9 +59,9 @@
         }
     };
 
-	if( $action->isValidePose(2, 2, $coneBlanc)){
-	   $action->posePiece(2, 2, $coneBlanc);
-	}
+    if( $action->isValidePose(2, 2, $coneBlanc)){
+        $action->posePiece(2, 2, $coneBlanc);
+    }
     if($action->isRowWin(0) or $action->isColWin(0) or $action->isCornerWin(0)){
         if($action->isRowWin(1) or $action->isColWin(1) or $action->isCornerWin(1)) {
             if ($action->isRowWin(2) or $action->isColWin(2) or $action->isCornerWin(2)) {
@@ -73,7 +71,7 @@
             }
         }
     };
-	if ($action->isValidePose(2, 2, $coneNoir)){
+    if ($action->isValidePose(2, 2, $coneNoir)){
         $action->posePiece(2, 2, $coneNoir);
     }
     if($action->isRowWin(0) or $action->isColWin(0) or $action->isCornerWin(0)){
@@ -139,7 +137,7 @@
 
     echo $tab;
 
-	?>
-	<button type='submit' name='active' disabled >(Co:W)BoutonHTML</button>
+    ?>
+    <button type='submit' name='active' disabled >(Co:W)BoutonHTML</button>
 </body>
 </html>

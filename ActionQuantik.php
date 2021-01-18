@@ -21,8 +21,8 @@ class ActionQuantik
         $pieceRow = $this->plateau->getRow($rowNum);
         $pieceCol = $this->plateau->getCol($colNum);
         $pieceCorner = $this->plateau->getCorner(PlateauQuantik::getCornerFromCoord($rowNum, $colNum));
-
-        return $this->isPieceValide($pieceRow, $piece) and $this->isPieceValide($pieceCol, $piece) and $this->isPieceValide($pieceCorner, $piece);
+        $res = $this->isPieceValide($pieceRow, $piece) and $this->isPieceValide($pieceCol, $piece) and $this->isPieceValide($pieceCorner, $piece);
+        return $res;
     }
 
 
