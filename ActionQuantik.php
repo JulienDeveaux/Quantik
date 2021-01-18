@@ -15,98 +15,67 @@ class ActionQuantik
 	}
 
 	public function isRowWin(int $numRow):bool{
-		$arr = $this->plateau->getRow($numRow);
-		/*for($i = 0; $i < 4; $i++) {
-			$arr[$i] = $this->plateau->getPiece($numRow, $i);
-		}*/
-		/*$p0 = $arr[0];
-		$p1 = $arr[1];
-		$p2 = $arr[2];
-		$p3 = $arr[3];
-
-		if($p0->forme != $p1->forme && $p0->forme != $p2->forme && $p0->forme != $p3->forme && $p1->forme != $p2->forme && $p1->forme != $p3->forme && $p2->forme != $p3->forme) {
-			return true;
-		}
-		return false;*/
-		return isComboWin($arr);
+		$row = $this->plateau->getCol($numCol);
+		return $this->isComboWin($row);
 	}
 
 	public function isColWin(int $numCol):bool{
-		$arr = $this->plateau->getCol($numCol);
-		/*for($i = 0; $i < 4; $i++) {
-			$arr[$i] = $this->plateau->getPiece($numCol, $i);
-		}*/
-		return isComboWin($arr);
+		$col = $this->plateau->getCol($numCol);
+		return $this->isComboWin($col);
+		return false;
 	}
 
 	public function isCornerWin(int $dir):bool{
 		$corner = $this->plateau->getCorner($dir);
-		for($i = 0; $i < PlateauQuantik::NBROWS; $i++){
-
-		}
-		return true;
+		return $this->isComboWin($corner);
 	}
 
 	public function isValidePose(int $rowNum, int $colNum, PieceQuantik $piece):bool{
-		$cornernum = $this->plateau->getCornerFromCoord($rowNum, $colNum);
-		$corner = $this->plateau->getCorner($cornernum);
-		for($i = 0; $i < PlateauQuantik::NBROWS; $i++){
-			if($corner[$i] == $piece){
-				return false;
-			} 
-		}
-		$row = $this->plateau->getRow($rowNum);
-		if($row[0]->forme == $row[1]->forme || $row[0]->forme == $row[2]->forme || $row[0]->forme == $row[3]->forme || $row[1]->forme == $row[2]->forme || $row[1]->forme == $row[3]->forme|| $row[2]->forme == $row[3]->forme) {
-			return false;
-		}
-		$col = $this->plateau->getCol($numCol);
-		if($col[0]->forme == $col[1]->forme || $col[0]->forme == $col[2]->forme || $col[0]->forme == $col[3]->forme || $col[1]->forme == $col[2]->forme || $col[1]->forme == $col[3]->forme|| $col[2]->forme == $col[3]->forme) {
-			return false;
-		}
-		return true;
+		$piecesRow = $this->plateau->getRow($rowNum);
+		$piecesCol = $this->plateau->getCol($colNum);
+		$pieresCor = $this->plateau->getCorner(PlateauQuantik::getCornerFromCoord($rowNum, $colNum));
+		return ($this->isPieceValide($piecesRow, $piece) and $this->isPieceValide($piecesCol, $piece) and $this->isPieceValide($pieresCor, $piece));
 	}
 
 	public function posePiece(int $rowNum, int $colNum, PieceQuantik $piece):void{
-		/*if($this->isValidePose($rowNum, $colNum, $piece) == true) {	//merde ici mais marche sans
-			$this->plateau->setPiece($rowNum, $colNum, $piece);
-			echo '<p> piece posée</p>'
-		} else {
-			echo '<p> piece non posée</p>';
-		}*/$this->plateau->setPiece($rowNum, $colNum, $piece);
-		/*if($this->isColWin($colNum)) {
-			echo '<p>Ok</p>';
-		}*/
+		$this->plateau->setPiece($rowNum, $colNum, $piece);
 	}
 
 	public function __toString():String
 	{
+		$s = '<p>Vous avez ';
 		for($i = 0; $i < PlateauQuantik::NBROWS; $i++) {
 			if($this->isRowWin($i) || $this->isColWin($i) || $this->isCornerWin($i)) {
-				$s = '<p>Gagné ^^</p>';
+				$s = $s.'Gagné ^^</p>';
 			} else {
-				$s = '<p>Perdu :(</p>';
+				$s = $s.'Perdu :(</p>';
 			}
 		}
-		echo '<p>s : ';
-		echo $s;
-		echo '</p>';
 		return $s;
 	}
 
 	private static function isPieceValide(array $pieces, PieceQuantik $p):bool{
-		return false;
+		switch ($pieces->getForme()) {
+			case PieceQuantik::CUBE:
+				return !(in_array(PieceQuantik::initBlackCube(), $p) or in_array(PieceQuantik::initWhiteCube(), $p));
+
+			case PieceQuantik::CONE:
+				return !(in_array(PieceQuantik::initBlackCone(), $p) or in_array(PieceQuantik::initWhiteCone(), $p));
+
+			case PieceQuantik::CYLINDRE:
+				return !(in_array(PieceQuantik::initBlackCylindre(), $p) or in_array(PieceQuantik::initWhiteCylindre(), $p));
+
+			case PieceQuantik::SPHERE:
+				return !(in_array(PieceQuantik::initBlackSpere(), $p) or in_array(PieceQuantik::initWhiteSpere(), $p));
+
+		}
 	}
 
 	private static function isComboWin(array $arr):bool{
-		$p0 = $arr[0];
-		$p1 = $arr[1];
-		$p2 = $arr[2];
-		$p3 = $arr[3];
-		echo $arr[0];
-		if($p0->forme != $p1->forme && $p0->forme != $p2->forme && $p0->forme != $p3->forme && $p1->forme != $p2->forme && $p1->forme != $p3->forme && $p2->forme != $p3->forme) {
-			return true;
-		}
-		return false;
+		return ((in_array(PieceQuantik::initBlackSpere(), $arr) or in_array(PieceQuantik::initWhiteSpere(), $arr)) and
+			(in_array(PieceQuantik::initBlackCone(), $arr) or in_array(PieceQuantik::initWhiteCone(), $arr)) and
+			(in_array(PieceQuantik::initBlackCube(), $arr) or in_array(PieceQuantik::initWhiteCube(), $arr)) and
+			(in_array(PieceQuantik::initBlackCylindre(), $arr) or in_array(PieceQuantik::initWhiteCylindre(), $arr)));
 	}
 }
 ?>

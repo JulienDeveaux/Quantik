@@ -12,12 +12,22 @@ class PlateauQuantik
 	public const SE = 3;
 	protected array $cases;
 
-	public  function __construct(){
-		$this->cases = array(array(PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid()),array(PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid()),array(PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid()),array(PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid()));
+	public function __construct(){
+		/*$this->cases = array();		//rajouter une ligne vide en plus
+		for($i; $i < self::NBROWS; $i++) {
+			$this->cases[$i] = array();
+			for($j = 0; $j < self::NBCOLS; $j++) {
+				$this->cases[$i][$j] = PieceQuantik::initVoid();
+			}
+		}*/
+		$this->cases = array_fill(0, self::NBROWS, array_fill(0, self::NBCOLS, PieceQuantik::initVoid()));
+		/*$this->cases = array(array(PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid()),array(PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid()),array(PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid()),array(PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid(),PieceQuantik::initVoid()));*/
 	}
+
 	public function getPiece(int $rowNum, int $colNum):PieceQuantik{
 		return $this->cases[$rowNum][$colNum];
 	}
+
 	public function setPiece(int $rowNum, int $colNum, PieceQuantik $p):void{
 		$this->cases[$rowNum][$colNum] = $p;
 	}
@@ -75,12 +85,27 @@ class PlateauQuantik
 				$resultat[$i] = $this->cases[$fromI][$fromJ];
 			}
 		}
+
 		return $resultat;
+		/*prof
+		switch ($dir) {
+			case self::NW
+				return[$this->cases[0][0], $this->cases[0][1], $this->cases[1][0], $this->cases[0][1]];
+
+			case self::NE
+				return[$this->cases[0][2], $this->cases[0][3], $this->cases[1][2], $this->cases[1][3]];
+
+			case self::SW
+				return[$this->cases[2][0], $this->cases[2][1], $this->cases[3][0], $this->cases[3][1]];
+
+			case self::SE
+				return[$this->cases[2][2], $this->cases[2][3], $this->cases[3][2], $this->cases[3][3]];
+		}*/
 
 	}
 
 	public function __toString():String{
-		$s = $s.'<p><table>';
+		$s = '<p><table>';
 		foreach($this->cases as $value =>$v) {
 			$s = $s.'<tr>';
 			foreach ($v as $key => $val) {
@@ -107,8 +132,6 @@ class PlateauQuantik
 		if($rowNum >= 3 && $colNum <= 2){
 			return self::SE;
 		}
-
 	}
-
 }
 ?>

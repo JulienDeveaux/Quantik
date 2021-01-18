@@ -8,7 +8,7 @@
 <body>
 	<?php
 	include "ActionQuantik.php";
-
+	//include "PlateauQuantik.php";
 	$var = new PlateauQuantik();
 	$tab = new PlateauQuantik();
 	$piece1 = PieceQuantik::initWhiteCube();
@@ -48,9 +48,20 @@
 	$action->posePiece(1, 0, $piece11);
 	echo '<p>plateau rempli par posePiece de ActionQuantik :</p>';
 	echo $tab;
-	echo '<p>test de getPlateau de ActionQuantik :</p>';
-	echo $action->getPlateau();
+	echo '<p>test de isValidePose de ActionQuantik :</p>';
+	if($action->isValidePose(0,1, $piece8) == true) {
+		echo 'marche';
+	} else {
+		echo 'marche po';
+	}
+	echo '<p>test de isCornerWin de ActionQuantik :</p>';
+	if($action->isCornerWin(0) == true) {
+		echo 'marche';
+	} else {
+		echo 'marche po';
+	}
 
 	?>
+	<button type='submit' name='active' disabled >(Co:W)BoutonHTML</button>
 </body>
 </html>
