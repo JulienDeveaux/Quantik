@@ -96,20 +96,18 @@ class PlateauQuantik
 
     }
 
-    public function __toString(): string
-    {
-        $s = "";
-        $s = $s. '<p><table>';
-        foreach ($this->cases as $value => $v) {
-            $s = $s . '<tr>';
-            foreach ($v as $key => $val) {
-                $s = $s . "<td>" . $val . "</td>";
-            }
-            $s = $s . "</tr>";
-        }
-        $s = $s . '</table></p>';
-        return $s;
-    }
+	public function __toString():String{
+		$s = '<p><table>';
+		foreach($this->cases as $value =>$v) {
+			$s = $s.'<tr>';
+			foreach ($v as $key => $val) {
+				$s = $s."<td>".$val."</td>";
+			}
+			$s = $s."</tr>";
+		}
+		$s = $s.'</table></p>';
+		return $s;
+	}
 
     public static function getCornerFromCoord(int $rowNum, int $colNum): int
     {

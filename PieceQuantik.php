@@ -103,6 +103,8 @@ class PieceQuantik
         $s = '<p>' . $f . " " . $c . '</p>';
         return $s;
     }
-}
 
+
+
+}
 ?>
