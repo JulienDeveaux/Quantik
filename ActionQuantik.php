@@ -78,8 +78,8 @@ class ActionQuantik
 
     public function isColWin(int $numCol): bool
     {
-        $col = $this->plateau->getCol($numCol);
-        return $this->isComboWin($col);
+        return self::isComboWin($this->plateau->getCol($numCol));
+
     }
 
     public function isCornerWin(int $dir): bool
@@ -87,7 +87,6 @@ class ActionQuantik
 
         return $this->isComboWin($this->plateau->getCorner($dir));
     }
-
 
 }
 
