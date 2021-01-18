@@ -35,8 +35,6 @@ class PlateauQuantik
 
     public function getRow(int $numRow): array
     {
-
-
         for ($i = 0; $i < self::NBROWS; $i++) {
             $resultat[$i] = $this->cases[$numRow][$i];
         }
@@ -46,7 +44,6 @@ class PlateauQuantik
 
     public function getCol(int $numCol): array
     {
-
         for ($i = 0; $i < self::NBCOLS; $i++) {
             $resultat[$i] = $this->cases[$i][$numCol];
         }

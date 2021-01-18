@@ -37,12 +37,11 @@ class ActionQuantik
                 return !(in_array(PieceQuantik::initBlackCylindre(), $pieces) or in_array(PieceQuantik::initWhiteCylindre(), $pieces));
             case PieceQuantik::SPHERE :
                 return !(in_array(PieceQuantik::initBlackSphere(), $pieces) or in_array(PieceQuantik::initWhiteSphere(), $pieces));
-
         }
     }
 
 
-	public function posePiece(int $rowNum, int $colNum, PieceQuantik $piece):void{
+	public function posePiece(int $rowNum, int $colNum, PieceQuantik $piece):void {
 		$this->plateau->setPiece($rowNum, $colNum, $piece);
 	}
 
@@ -65,7 +64,7 @@ class ActionQuantik
     {
         return (in_array(PieceQuantik::initBlackSphere(), $pieces) or in_array(PieceQuantik::initWhiteSphere(), $pieces)and
                 in_array(PieceQuantik::initBlackCube(),$pieces) or in_array(PieceQuantik::initWhiteCube(), $pieces) and
-                in_array(PieceQuantik::initBlackCone(),$pieces) or in_array(PieceQUantik::initWHiteCone(),$pieces) and
+                in_array(PieceQuantik::initBlackCone(),$pieces) or in_array(PieceQUantik::initWhiteCone(),$pieces) and
                 in_array(PieceQuantik::initBlackCylindre(),$pieces) or in_array(PieceQuantik::initWhiteCylindre(), $pieces));
     }
 
@@ -87,7 +86,6 @@ class ActionQuantik
         $cor = $this->plateau->getCorner($dir);
         return $this->isComboWin($cor);
     }
-
 }
 
 ?>
