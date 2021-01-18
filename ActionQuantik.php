@@ -53,11 +53,11 @@ class ActionQuantik
 		for($i = 0; $i < PlateauQuantik::NBROWS; $i++) {
 			if($this->isRowWin($i) || $this->isColWin($i) || $this->isCornerWin($i)) {
 				$s = $s.'Gagné ^^</p>';
-			} else {
-				$s = $s.'Perdu :(</p>';
+                return $s;
 			}
 		}
-		return $s;
+        $s = '';
+        return $s;
 	}
 
     private static function isComboWin(array $pieces): bool

@@ -9,7 +9,6 @@
 	<?php
 	include "ActionQuantik.php";
 
-    $var = new PlateauQuantik();
     $tab = new PlateauQuantik();
     $cubeBlanc = PieceQuantik::initWhiteCube();
     $cubeNoir = PieceQuantik::initBlackCube();
@@ -28,18 +27,6 @@
     $sphereBlanc1 = PieceQuantik::initWhiteSphere();
     $sphereNoir1 = PieceQuantik::initBlackSphere();
 
-	/*$var->setPiece(0, 0, $cubeBlanc);
-	$var->setPiece(1, 1, $cubeNoir);
-	$var->setPiece(2, 2, $coneBlanc);
-	$var->setPiece(3, 3, $coneNoir);
-	$var->setPiece(3, 2, $cylindreBlanc);
-	$var->setPiece(0, 1, $cylindreNoir);
-	$var->setPiece(0, 2, $sphereBlanc);
-	$var->setPiece(1, 2, $sphereNoir);*/
-
-
-	echo '<p>plateau rempli par setPiece de PlateauQuantik :</p>';
-	//echo $var;
 	$action = new ActionQuantik($tab);
 	if(	$action->isValidePose(0, 0, $cubeBlanc)){
         $action->posePiece(0, 0, $cubeBlanc);
@@ -49,6 +36,7 @@
         echo"Cubenoir";
 
     }
+    echo $action;
 
     if(	$action->isValidePose(1, 1, $cubeNoir)){
         $action->posePiece(1, 1, $cubeNoir);
@@ -58,6 +46,7 @@
            echo"Cubenoir";
 
     };
+    echo $action;
 
     if( $action->isValidePose(2, 2, $coneBlanc)){
         $action->posePiece(2, 2, $coneBlanc);
@@ -67,6 +56,7 @@
                     echo"coneblanc";
 
     };
+    echo $action;
 
     if ($action->isValidePose(2, 2, $coneNoir)){
         $action->posePiece(2, 2, $coneNoir);
@@ -77,6 +67,7 @@
                     echo"cone noir";
 
     };
+    echo $action;
 
     if( $action->isValidePose(0, 1, $cylindreNoir)){
         $action->posePiece(0, 1, $cylindreNoir);
@@ -86,6 +77,7 @@
          echo"cylindreNoir";
 
     };
+    echo $action;
 
     if($action->isValidePose(0, 2, $sphereBlanc)){
 
@@ -97,6 +89,8 @@
 
 
     };
+    echo $action;
+    echo $tab;
 
     if($action->isValidePose(1, 2 , $sphereNoir)){
 
@@ -104,9 +98,17 @@
     }
     if($action->isRowWin(1) or $action->isColWin(2) or $action->isCornerWin(1)){
          echo " Gagné ";
-         echo"sphereNoir";
+         echo "sphereNoir";
+         echo "row";
+         echo $action->isRowWin(1);
+         echo "col";
+         echo $action->isColWin(2);
+         echo "cor";
+         echo $action->isCornerWin(1);
 
     };
+    echo $action;
+    echo $tab;
 
     if($action->isValidePose(0,3, $coneNoir)){
         $action->PosePiece(0,3, $coneNoir);
