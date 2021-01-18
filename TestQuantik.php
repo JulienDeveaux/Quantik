@@ -37,6 +37,7 @@
 	echo $var;
 	$action = new ActionQuantik($tab);
 	$action->posePiece(0, 0, $piece1);
+	$action->isValidePose(0, 0, $piece1);
 	$action->posePiece(1, 1, $piece2);
 	$action->posePiece(2, 2, $piece3);
 	$action->posePiece(3, 3, $piece4);
