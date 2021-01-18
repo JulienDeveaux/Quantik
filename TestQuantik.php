@@ -14,7 +14,7 @@
 	$piece1 = PieceQuantik::initWhiteCube();
 	$piece2 = PieceQuantik::initBlackCone();
 	$piece3 = PieceQuantik::initBlackCylindre();
-	$piece4 = PieceQuantik::initWhiteSpere();
+	$piece4 = PieceQuantik::initWhiteSphere();
 	$piece5 = PieceQuantik::initBlackCube();
 	$piece6 = PieceQuantik::initWhiteCylindre();
 	$piece7 = PieceQuantik::initBlackCone();
@@ -50,7 +50,7 @@
 	echo '<p>plateau rempli par posePiece de ActionQuantik :</p>';
 	echo $tab;
 	echo '<p>test de isValidePose de ActionQuantik :</p>';
-	if($action->isValidePose(0,1, $piece8) == true) {
+	if($action->isValidePose(0,0, $piece1) == true) {
 		echo 'marche';
 	} else {
 		echo 'marche po';

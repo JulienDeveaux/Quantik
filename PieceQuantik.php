@@ -57,7 +57,7 @@ class PieceQuantik
         return new PieceQuantik(self::CYLINDRE, self::BLACK);
     }
 
-    public static function initWhiteSpere(): PieceQuantik
+    public static function initWhiteSphere(): PieceQuantik
     {
         return new PieceQuantik(self::SPHERE, self::WHITE);
     }
