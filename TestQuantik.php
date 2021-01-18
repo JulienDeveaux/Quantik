@@ -9,13 +9,12 @@
 	<?php
 	include "ActionQuantik.php";
 
-	//include "PlateauQuantik.php";
-	$var = new PlateauQuantik();
-	$tab = new PlateauQuantik();
-	$cubeBlanc = PieceQuantik::initWhiteCube();
-	$cubeNoir = PieceQuantik::initBlackCube();
-	$coneBlanc = PieceQuantik::initWhiteCone();
-	$coneNoir = PieceQuantik::initBlackCone();
+    $var = new PlateauQuantik();
+    $tab = new PlateauQuantik();
+    $cubeBlanc = PieceQuantik::initWhiteCube();
+    $cubeNoir = PieceQuantik::initBlackCube();
+    $coneBlanc = PieceQuantik::initWhiteCone();
+    $coneNoir = PieceQuantik::initBlackCone();
     $cylindreBlanc= PieceQuantik::initWhiteCylindre();
     $cylindreNoir = PieceQuantik::initBlackCylindre();
     $sphereBlanc = PieceQuantik::initWhiteSphere();
@@ -37,15 +36,10 @@
 	if(	$action->isValidePose(0, 0, $cubeBlanc)){
         $action->posePiece(0, 0, $cubeBlanc);
     }
-    if($action->isRowWin(0) or $action->isColWin(0) or $action->isCornerWin(0)){
-        if($action->isRowWin(1) or $action->isColWin(1) or $action->isCornerWin(1)) {
-            if ($action->isRowWin(2) or $action->isColWin(2) or $action->isCornerWin(2)) {
-                if ($action->isRowWin(3) or $action->isColWin(3) or $action->isCornerWin(3)) {
-                    echo "Gagné";
-                }
-            }
-        }
+    if($action->isRowWin(0) || $action->isColWin(0) || $action->isCornerWin(0) || $action->isRowWin(1) || $action->isColWin(1) || $action->isCornerWin(1) || $action->isRowWin(2) || $action->isColWin(2) || $action->isCornerWin(2) || $action->isRowWin(3) || $action->isColWin(3) || $action->isCornerWin(3)) {
+        echo "Gagné";
     };
+
     if(	$action->isValidePose(1, 1, $cubeNoir)){
         $action->posePiece(1, 1, $cubeNoir);
     }
@@ -71,6 +65,7 @@
             }
         }
     };
+
     if ($action->isValidePose(2, 2, $coneNoir)){
         $action->posePiece(2, 2, $coneNoir);
     }
@@ -83,6 +78,7 @@
             }
         }
     };
+
     if( $action->isValidePose(0, 1, $cylindreNoir)){
         $action->posePiece(0, 1, $cylindreNoir);
     }
@@ -95,6 +91,7 @@
             }
         }
     };
+
     if($action->isValidePose(0, 2, $sphereBlanc)){
 
         $action->posePiece(0, 2, $sphereBlanc);
@@ -108,6 +105,7 @@
             }
         }
     };
+
     if($action->isValidePose(1, 2 , $sphereNoir)){
 
         $action->posePiece(1, 2, $sphereNoir);

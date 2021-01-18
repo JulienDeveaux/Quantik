@@ -61,31 +61,31 @@ class ActionQuantik
 		return $s;
 	}
 
+    private static function isComboWin(array $pieces): bool
+    {
+        return (in_array(PieceQuantik::initBlackSphere(), $pieces) or in_array(PieceQuantik::initWhiteSphere(), $pieces)and
+                in_array(PieceQuantik::initBlackCube(),$pieces) or in_array(PieceQuantik::initWhiteCube(), $pieces) and
+                in_array(PieceQuantik::initBlackCone(),$pieces) or in_array(PieceQUantik::initWHiteCone(),$pieces) and
+                in_array(PieceQuantik::initBlackCylindre(),$pieces) or in_array(PieceQuantik::initWhiteCylindre(), $pieces));
+    }
+
     public function isRowWin(int $numRow): bool
     {
         $row = $this->plateau->getRow($numRow);
         return $this->isComboWin($row);
     }
 
-    private static function isComboWin(array $pieces): bool
-    {
-        return
-            (in_array(PieceQuantik::initBlackSphere(), $pieces) or in_array(PieceQuantik::initWhiteSphere(), $pieces)or
-                in_array(PieceQuantik::initBlackCube(),$pieces)or in_array(PieceQuantik::initWhiteCube(), $pieces) or
-                in_array(PieceQuantik::initBlackCone(),$pieces)or in_array(PieceQUantik::initWHiteCone(),$pieces)or
-                in_array(PieceQuantik::initBlackCylindre(),$pieces) or in_array(PieceQuantik::initWhiteCylindre(), $pieces));
-    }
-
     public function isColWin(int $numCol): bool
     {
-        return self::isComboWin($this->plateau->getCol($numCol));
+        $col = $this->plateau->getCol($numCol);
+        return $this->isComboWin($col);
 
     }
 
     public function isCornerWin(int $dir): bool
     {
-
-        return $this->isComboWin($this->plateau->getCorner($dir));
+        $cor = $this->plateau->getCorner($dir);
+        return $this->isComboWin($cor);
     }
 
 }
