@@ -19,6 +19,14 @@
     $cylindreNoir = PieceQuantik::initBlackCylindre();
     $sphereBlanc = PieceQuantik::initWhiteSphere();
     $sphereNoir = PieceQuantik::initBlackSphere();
+    $cubeBlanc1 = PieceQuantik::initWhiteCube();
+    $cubeNoir1 = PieceQuantik::initBlackCube();
+    $coneBlanc1 = PieceQuantik::initWhiteCone();
+    $coneNoir1 = PieceQuantik::initBlackCone();
+    $cylindreBlanc1= PieceQuantik::initWhiteCylindre();
+    $cylindreNoir1 = PieceQuantik::initBlackCylindre();
+    $sphereBlanc1 = PieceQuantik::initWhiteSphere();
+    $sphereNoir1 = PieceQuantik::initBlackSphere();
 
 	/*$var->setPiece(0, 0, $cubeBlanc);
 	$var->setPiece(1, 1, $cubeNoir);
@@ -36,101 +44,77 @@
 	if(	$action->isValidePose(0, 0, $cubeBlanc)){
         $action->posePiece(0, 0, $cubeBlanc);
     }
-    if($action->isRowWin(0) || $action->isColWin(0) || $action->isCornerWin(0) || $action->isRowWin(1) || $action->isColWin(1) || $action->isCornerWin(1) || $action->isRowWin(2) || $action->isColWin(2) || $action->isCornerWin(2) || $action->isRowWin(3) || $action->isColWin(3) || $action->isCornerWin(3)) {
-        echo "Gagné";
-    };
+    if($action->isRowWin(0) or $action->isColWin(0) or $action->isCornerWin(0)){
+        echo " Gagné ";
+        echo"Cubenoir";
+
+    }
 
     if(	$action->isValidePose(1, 1, $cubeNoir)){
         $action->posePiece(1, 1, $cubeNoir);
     }
     if($action->isRowWin(0) or $action->isColWin(0) or $action->isCornerWin(0)){
-        if($action->isRowWin(1) or $action->isColWin(1) or $action->isCornerWin(1)) {
-            if ($action->isRowWin(2) or $action->isColWin(2) or $action->isCornerWin(2)) {
-                if ($action->isRowWin(3) or $action->isColWin(3) or $action->isCornerWin(3)) {
-                    echo "Gagné";
-                }
-            }
-        }
+           echo " Gagné ";
+           echo"Cubenoir";
+
     };
 
     if( $action->isValidePose(2, 2, $coneBlanc)){
         $action->posePiece(2, 2, $coneBlanc);
     }
-    if($action->isRowWin(0) or $action->isColWin(0) or $action->isCornerWin(0)){
-        if($action->isRowWin(1) or $action->isColWin(1) or $action->isCornerWin(1)) {
-            if ($action->isRowWin(2) or $action->isColWin(2) or $action->isCornerWin(2)) {
-                if ($action->isRowWin(3) or $action->isColWin(3) or $action->isCornerWin(3)) {
-                    echo "Gagné";
-                }
-            }
-        }
+    if($action->isRowWin(2) or $action->isColWin(2) or $action->isCornerWin(3)){
+                    echo " Gagné ";
+                    echo"coneblanc";
+
     };
 
     if ($action->isValidePose(2, 2, $coneNoir)){
         $action->posePiece(2, 2, $coneNoir);
     }
-    if($action->isRowWin(0) or $action->isColWin(0) or $action->isCornerWin(0)){
-        if($action->isRowWin(1) or $action->isColWin(1) or $action->isCornerWin(1)) {
-            if ($action->isRowWin(2) or $action->isColWin(2) or $action->isCornerWin(2)) {
-                if ($action->isRowWin(3) or $action->isColWin(3) or $action->isCornerWin(3)) {
-                    echo "Gagné";
-                }
-            }
-        }
+
+    if ($action->isRowWin(3) or $action->isColWin(3) or $action->isCornerWin(3)) {
+                    echo " Gagné ";
+                    echo"cone noir";
+
     };
 
     if( $action->isValidePose(0, 1, $cylindreNoir)){
         $action->posePiece(0, 1, $cylindreNoir);
     }
     if($action->isRowWin(0) or $action->isColWin(0) or $action->isCornerWin(0)){
-        if($action->isRowWin(1) or $action->isColWin(1) or $action->isCornerWin(1)) {
-            if ($action->isRowWin(2) or $action->isColWin(2) or $action->isCornerWin(2)) {
-                if ($action->isRowWin(3) or $action->isColWin(3) or $action->isCornerWin(3)) {
-                    echo "Gagné";
-                }
-            }
-        }
+         echo " Gagné ";
+         echo"cylindreNoir";
+
     };
 
     if($action->isValidePose(0, 2, $sphereBlanc)){
 
         $action->posePiece(0, 2, $sphereBlanc);
     }
-    if($action->isRowWin(0) or $action->isColWin(0) or $action->isCornerWin(0)){
-        if($action->isRowWin(1) or $action->isColWin(1) or $action->isCornerWin(1)) {
-            if ($action->isRowWin(2) or $action->isColWin(2) or $action->isCornerWin(2)) {
-                if ($action->isRowWin(3) or $action->isColWin(3) or $action->isCornerWin(3)) {
-                    echo "Gagné";
-                }
-            }
-        }
+    if($action->isRowWin(0) or $action->isColWin(2) or $action->isCornerWin(1)){
+       echo " Gagné ";
+       echo"SphereBlanc";
+
+
     };
 
     if($action->isValidePose(1, 2 , $sphereNoir)){
 
         $action->posePiece(1, 2, $sphereNoir);
     }
-    if($action->isRowWin(0) or $action->isColWin(0) or $action->isCornerWin(0)){
-        if($action->isRowWin(1) or $action->isColWin(1) or $action->isCornerWin(1)) {
-            if ($action->isRowWin(2) or $action->isColWin(2) or $action->isCornerWin(2)) {
-                if ($action->isRowWin(3) or $action->isColWin(3) or $action->isCornerWin(3)) {
-                    echo "Gagné";
-                }
-            }
-        }
+    if($action->isRowWin(1) or $action->isColWin(2) or $action->isCornerWin(1)){
+         echo " Gagné ";
+         echo"sphereNoir";
+
     };
 
-    if($action->isValidePose(2,0, $coneNoir)){
-        $action->PosePiece(2,0, $coneNoir);
+    if($action->isValidePose(0,3, $coneNoir)){
+        $action->PosePiece(0,3, $coneNoir);
     }
-    if($action->isRowWin(0) or $action->isColWin(0) or $action->isCornerWin(0)){
-        if($action->isRowWin(1) or $action->isColWin(1) or $action->isCornerWin(1)) {
-            if ($action->isRowWin(2) or $action->isColWin(2) or $action->isCornerWin(2)) {
-                if ($action->isRowWin(3) or $action->isColWin(3) or $action->isCornerWin(3)) {
-                    echo "Gagné";
-                }
-            }
-        }
+    if($action->isRowWin(0) or $action->isColWin(3) or $action->isCornerWin(1)){
+          echo " Gagné ";
+          echo "coneNoir";
+
     };
 
     echo $tab;
