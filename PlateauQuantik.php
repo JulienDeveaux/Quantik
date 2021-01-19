@@ -50,45 +50,16 @@ class PlateauQuantik
 
     public function getCorner(int $dir): array
     {
-
         switch ($dir) {
-            case(self::NW) :
-                $fromI = 0;
-                $fromJ = 0;
-                $toI = self::NBROWS / 2;
-                $toJ = self::NBCOLS / 2;
-                break;
-
-            case(self::NE) :
-                $fromI = 0;
-                $fromJ = 1;
-                $toI = self::NBROWS / 2;
-                $toJ = self::NBCOLS;
-                break;
-
-            case(self::SW) :
-                $fromI = 1;
-                $fromJ = 0;
-                $toI = self::NBROWS;
-                $toJ = self::NBCOLS / 2;
-                break;
-
-            case(self::SE):
-                $fromI = 1;
-                $fromJ = 1;
-                $toI = self::NBROWS;
-                $toJ = self::NBCOLS;
-                break;
-
+            case self::NW:
+                return [$this->cases[0][0], $this->cases[0][1], $this->cases[1][0], $this->cases[1][1]];
+            case self::NE:
+                return [$this->cases[0][2], $this->cases[0][3], $this->cases[1][2], $this->cases[1][3]];
+            case self::SW:
+                return [$this->cases[2][0], $this->cases[2][1], $this->cases[3][0], $this->cases[3][1]];
+            case self::SE:
+                return [$this->cases[2][2], $this->cases[2][3], $this->cases[3][2], $this->cases[3][3]];
         }
-
-        for ($i = $fromI; $i < $toI; $i++) {
-            for ($j = $fromJ; $j < $toJ; $j++) {
-                $resultat[$i] = $this->cases[$fromI][$fromJ];
-            }
-        }
-        return $resultat;
-
     }
 
 	public function __toString():String{
@@ -107,18 +78,18 @@ class PlateauQuantik
     public static function getCornerFromCoord(int $rowNum, int $colNum): int
     {
 
-        if ($rowNum <= self::NBROWS/2 && $colNum <= self::NBCOLS/2) {
+        if ($rowNum < self::NBROWS/2 && $colNum < self::NBCOLS/2) {
             return self::NW;
         }
-        if ($rowNum <= self::NBROWS/2 && $colNum > self::NBCOLS/2) {
+        if ($rowNum < self::NBROWS/2 && $colNum >= self::NBCOLS/2) {
             return self::NE;
         }
 
-        if ($rowNum > self::NBROWS/2 && $colNum <= self::NBCOLS/2) {
+        if ($rowNum >= self::NBROWS/2 && $colNum < self::NBCOLS/2) {
             return self::SW;
         }
 
-        if ($rowNum > self::NBROWS/2 && $colNum <= self::NBCOLS/2) {
+        if ($rowNum >= self::NBROWS/2 && $colNum >= self::NBCOLS/2) {
             return self::SE;
         }
 
