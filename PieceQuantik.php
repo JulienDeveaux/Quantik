@@ -1,6 +1,5 @@
 <?php
 
-
 class PieceQuantik
 {
     public const WHITE = 0;

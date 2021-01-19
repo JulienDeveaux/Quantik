@@ -1,7 +1,5 @@
 <?php
 
-include "PieceQuantik.php";
-
 class PlateauQuantik
 {
     public const NBROWS = 4;
@@ -16,7 +14,7 @@ class PlateauQuantik
     {
         for($i = 0; $i < self::NBROWS; $i++){
             for($j = 0; $j < self::NBCOLS; $j++){
-                $this->cases[$i][] = PieceQuantik::initVoid();
+                $this->cases[$i][$j] = PieceQuantik::initVoid();
             }
         }
      }

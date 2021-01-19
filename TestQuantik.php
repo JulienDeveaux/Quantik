@@ -26,6 +26,14 @@
     $cylindreNoir1 = PieceQuantik::initBlackCylindre();
     $sphereBlanc1 = PieceQuantik::initWhiteSphere();
     $sphereNoir1 = PieceQuantik::initBlackSphere();
+    
+    $ta = new ArrayPieceQuantik();
+    $ta->addPieceQuantik(0);
+    $ta->addPieceQuantik(1);
+    $ta->addPieceQuantik(2);
+    $ta->addPieceQuantik(3);
+    $ta->setPieceQuantik(0, $cubeNoir);
+    echo $ta;
 
 	$action = new ActionQuantik($tab);
 	if(	$action->isValidePose(0, 0, $cubeBlanc)){
@@ -122,6 +130,5 @@
     echo $tab;
 
     ?>
-    <button type='submit' name='active' disabled >(Co:W)BoutonHTML</button>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 
-include "PlateauQuantik.php";
+include "ArrayPieceQuantik.php";
 
 class ActionQuantik
 {
