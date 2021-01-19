@@ -62,10 +62,14 @@ class ActionQuantik
 
     private static function isComboWin(array $pieces): bool
     {
-        return (in_array(PieceQuantik::initBlackSphere(), $pieces) or in_array(PieceQuantik::initWhiteSphere(), $pieces)and
-                in_array(PieceQuantik::initBlackCube(),$pieces) or in_array(PieceQuantik::initWhiteCube(), $pieces) and
-                in_array(PieceQuantik::initBlackCone(),$pieces) or in_array(PieceQUantik::initWhiteCone(),$pieces) and
-                in_array(PieceQuantik::initBlackCylindre(),$pieces) or in_array(PieceQuantik::initWhiteCylindre(), $pieces));
+        if(in_array(PieceQuantik::initVoid(), $pieces)) {
+            return false;
+        }
+
+        return (in_array(PieceQuantik::initBlackSphere(), $pieces) xor in_array(PieceQuantik::initWhiteSphere(), $pieces) and
+                in_array(PieceQuantik::initBlackCube(),$pieces) xor in_array(PieceQuantik::initWhiteCube(), $pieces) and
+                in_array(PieceQuantik::initBlackCone(),$pieces) xor in_array(PieceQUantik::initWhiteCone(),$pieces) and
+                in_array(PieceQuantik::initBlackCylindre(),$pieces) xor in_array(PieceQuantik::initWhiteCylindre(), $pieces));
     }
 
     public function isRowWin(int $numRow): bool
@@ -84,6 +88,7 @@ class ActionQuantik
     public function isCornerWin(int $dir): bool
     {
         $cor = $this->plateau->getCorner($dir);
+
         return $this->isComboWin($cor);
     }
 }
