@@ -1,15 +1,26 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="style.css" />
-	<title>Quantik</title>
-</head>
-<body>
+
 	<form action="formulaireQuantikTwo.php" method ="get">
 		<?php
 		include "ActionQuantik.php";
 
+
+	   function getDebutHTML():String{
+	        $s = "<!DOCTYPE html> <html lang=\"fr\">
+                    <head>
+                        <title> Page html de test </title>
+	                    <meta charset=\"utf-8\" />
+                          <link rel=\"stylesheet\" href=\"../CSS/style.css\" />
+                             <script src=\"script.js\"></script>
+                    </head>
+            <body>";
+	        return $s;
+	    }
+
+	    function getFinHTML():String{
+	       $s = "</body>
+                </html>";
+	       return $s;
+        }
 		function getDivPiecesDisponibles(ArrayPieceQuantik $a):string {
 			$res = "";
 			for($i = 0; $i < $a->getTaille(); $i++) {
@@ -47,6 +58,8 @@
 			return $res;
 		}
 
+		echo getDebutHTML();
+
 		$cubeBlanc = PieceQuantik::initWhiteCube();
 		$cubeNoir = PieceQuantik::initBlackCube();
 		$coneBlanc = PieceQuantik::initWhiteCone();
@@ -70,6 +83,8 @@
 		$ta->addPieceQuantik(2);
 		$ta->addPieceQuantik(3);
 		$ta->setPieceQuantik(0, $cubeNoir);
+		echo $ta;
+
 		$t = new ArrayPieceQuantik();
 		$t = $t->initPiecesBlanches();
 		$res  = getDivPiecesDisponibles($t);
@@ -78,7 +93,10 @@
 		$tableau = new PlateauQuantik();
 		$res = getDivPlateauQuantik($tableau);
 		echo $res;
+
+
+
+
+		echo getFinHTML();
 		?>
 	</form>
-</body>
-</html>
