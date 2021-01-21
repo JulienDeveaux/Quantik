@@ -13,10 +13,11 @@
 
 		function getDivPiecesDisponibles(ArrayPieceQuantik $a):string {
 			for($i = 0; $i < $a->getTaille; $i++) {
-				echo '<button type='submit' name='active' disabled >';
-				echo $a->getPieceQuantik($i);
-				echo '</button>';
+				$res =  "<button type='submit' name='active' disabled >";
+				$res =  $res.$a->getPieceQuantik($i);
+				$res =  $res."</button>";
 			}
+			return $res;
 		}
 		echo 'test';
 
