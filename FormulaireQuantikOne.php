@@ -9,17 +9,43 @@
 	<form action="formulaireQuantikTwo.php" method ="get">
 		<?php
 		include "ActionQuantik.php";
-		echo 'test';
 
 		function getDivPiecesDisponibles(ArrayPieceQuantik $a):string {
-			for($i = 0; $i < $a->getTaille; $i++) {
-				$res =  "<button type='submit' name='active' disabled >";
+			$res = "";
+			for($i = 0; $i < $a->getTaille(); $i++) {
+				$res =  $res."<button type='submit' name='active' disabled >";
 				$res =  $res.$a->getPieceQuantik($i);
 				$res =  $res."</button>";
 			}
 			return $res;
 		}
-		echo 'test';
+
+		function getFormSelectionPiece(ArrayPieceQuantik $a):string {
+			$res = "";
+			return $res;
+		}
+
+		function getDivPlateauQuantik(PlateauQuantik $p):string {
+			for($i = 0; $i < 3; $i++) {
+				$array[$i] = $p->getRow($i);
+			}
+
+			$s = '<p><table>';
+			foreach($array as $value =>$v) {
+				$s = $s.'<tr>';
+				foreach ($v as $key => $val) {
+					$s = $s."<td>".$val."</td>";
+				}
+				$s = $s."</tr>";
+			}
+			$s = $s.'</table></p>';
+			return $s;
+		}
+
+		function getFormPlateauQuantik(PlateauQuantik $pl, PieceQuantik $p):string {
+			$res = "";
+			return $res;
+		}
 
 		$cubeBlanc = PieceQuantik::initWhiteCube();
 		$cubeNoir = PieceQuantik::initBlackCube();
@@ -44,8 +70,14 @@
 		$ta->addPieceQuantik(2);
 		$ta->addPieceQuantik(3);
 		$ta->setPieceQuantik(0, $cubeNoir);
-		echo 'test';
-		echo $ta;
+		$t = new ArrayPieceQuantik();
+		$t = $t->initPiecesBlanches();
+		$res  = getDivPiecesDisponibles($t);
+		echo $res;
+
+		$tableau = new PlateauQuantik();
+		$res = getDivPlateauQuantik($tableau);
+		echo $res;
 		?>
 	</form>
 </body>

@@ -85,5 +85,4 @@ class ArrayPieceQuantik
 		$this->piecesQuantiks[$pos] = null;
 	}
 }
-
 ?>
