@@ -25,21 +25,47 @@ class ArrayPieceQuantik
 		return $this->taille;
 	}
 
-	/*public const function initPiecesNoires(): ArrayPieceQuantik {
-		$this->piecesQuantiks[0] = PieceQuantik::initBlackCube();
-		$this->piecesQuantiks[1] = PieceQuantik::initBlackCone();
-		$this->piecesQuantiks[2] = PieceQuantik::initBlackCylindre();
-		$this->piecesQuantiks[3] = PieceQuantik::initBlackSphere();
-		return $this;
+	public static function initPiecesNoires(): ArrayPieceQuantik {
+	    $resultat = new ArrayPieceQuantik();
+	    $resultat->addPieceQuantik(0);
+        $resultat->addPieceQuantik(1);
+        $resultat->addPieceQuantik(2);
+        $resultat->addPieceQuantik(3);
+        $resultat->addPieceQuantik(4);
+        $resultat->addPieceQuantik(5);
+        $resultat->addPieceQuantik(6);
+        $resultat->addPieceQuantik(7);
+        $resultat->setPieceQuantik(0, PieceQuantik::initBlackCube());
+	    $resultat->setPieceQuantik(1, PieceQuantik::initBlackCube());
+        $resultat->setPieceQuantik(2, PieceQuantik::initBlackCone());
+        $resultat->setPieceQuantik(3, PieceQuantik::initBlackCone());
+        $resultat->setPieceQuantik(4, PieceQuantik::initBlackCylindre());
+        $resultat->setPieceQuantik(5, PieceQuantik::initBlackCylindre());
+        $resultat->setPieceQuantik(6, PieceQuantik::initBlackSphere());
+        $resultat->setPieceQuantik(7, PieceQuantik::initBlackSphere());
+		return $resultat;
 	}
 
-	public const function initPiecesBlanches(): ArrayPieceQuantik {
-		$this->piecesQuantiks[0] = PieceQuantik::initWhiteCube();
-		$this->piecesQuantiks[1] = PieceQuantik::initWhiteCone();
-		$this->piecesQuantiks[2] = PieceQuantik::initWhiteCylindre();
-		$this->piecesQuantiks[3] = PieceQuantik::initWhiteSphere();
-		return $this;
-	}*/
+	public static function initPiecesBlanches(): ArrayPieceQuantik {
+        $resultat = new ArrayPieceQuantik();
+        $resultat->addPieceQuantik(0);
+        $resultat->addPieceQuantik(1);
+        $resultat->addPieceQuantik(2);
+        $resultat->addPieceQuantik(3);
+        $resultat->addPieceQuantik(4);
+        $resultat->addPieceQuantik(5);
+        $resultat->addPieceQuantik(6);
+        $resultat->addPieceQuantik(7);
+        $resultat->setPieceQuantik(0, PieceQuantik::initWHiteCube());
+        $resultat->setPieceQuantik(1, PieceQuantik::initWhiteCube());
+        $resultat->setPieceQuantik(2, PieceQuantik::initWhiteCone());
+        $resultat->setPieceQuantik(3, PieceQuantik::initWhiteCone());
+        $resultat->setPieceQuantik(4, PieceQuantik::initWhiteCylindre());
+        $resultat->setPieceQuantik(5, PieceQuantik::initWhiteCylindre());
+        $resultat->setPieceQuantik(6, PieceQuantik::initWhiteSphere());
+        $resultat->setPieceQuantik(7, PieceQuantik::initWhiteSphere());
+		return $resultat;
+	}
 
 	public function getPieceQuantik(int $pos): PieceQuantik {
 		return $this->piecesQuantiks[$pos];

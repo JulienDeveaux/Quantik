@@ -34,6 +34,10 @@
     $ta->addPieceQuantik(2);
     $ta->addPieceQuantik(3);
     $ta->setPieceQuantik(0, $cubeNoir);
+    $initNoir = ArrayPieceQuantik::initPiecesNoires();
+    echo $initNoir;
+    $initBlanc = ArrayPieceQuantik::initPiecesBlanches();
+    echo $initBlanc;
     echo $ta;
 
     $cubeNoirtest = PieceQuantik::initBlackCube();
