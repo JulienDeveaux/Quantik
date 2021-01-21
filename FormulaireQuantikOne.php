@@ -7,10 +7,9 @@
 	   function getDebutHTML():String{
 	        $s = "<!DOCTYPE html> <html lang=\"fr\">
                     <head>
-                        <title> Page html de test </title>
+                        <title>Quantik</title>
 	                    <meta charset=\"utf-8\" />
-                          <link rel=\"stylesheet\" href=\"../CSS/style.css\" />
-                             <script src=\"script.js\"></script>
+                          <link rel=\"stylesheet\" href=\"style.css\" />
                     </head>
             <body>";
 	        return $s;
