@@ -12,7 +12,29 @@
 			echo 'posx : '+$posx;
 			echo 'posy : '+$posy;
 		} elseif (isset($_GET['PiecesDispo'])) {
-			$PiecesDispo = $_GET['PiecesDispo'];
+			$PiecesString = $_GET['PiecesDispo'];
+			echo $PiecesString;
+			if($PiecesString[0] == 0) {				//Blanc
+				if($PiecesString[2] == 1) {			//Cube
+					$PiecesDispo = PieceQuantik::initWhiteCube();
+				} else if($PiecesString[2] == 2) {	//Cone
+					$PiecesDispo = PieceQuantik::initWhiteCone();
+				} else if($PiecesString[2] == 3) {	//Cylindre
+					$PiecesDispo = PieceQuantik::initWhiteCylindre();
+				} else if($PiecesString[2] == 4) {	//Sphere
+					$PiecesDispo = PieceQuantik::initWhiteSphere();
+				}
+			} else {								//Noir
+				if($PiecesString[0] == 1) {			//Cube
+					$PiecesDispo = PieceQuantik::initBlackSphere();
+				} else if($PiecesString[2] == 2) {	//Cone
+					$PiecesDispo = PieceQuantik::initBlackSphere();
+				} else if($PiecesString[2] == 3) {	//Cylindre
+					$PiecesDispo = PieceQuantik::initBlackSphere();
+				} else if($PiecesString[2] == 4) {	//Sphere
+					$PiecesDispo = PieceQuantik::initBlackSphere();
+				}
+			}
 			echo $PiecesDispo;
 		}
 	}
@@ -83,14 +105,13 @@
 	}
 
 	function getFormPlateauQuantik(PlateauQuantik $pl, PieceQuantik $p):void {
-		echo 'TEST';
-		$pl->setPiece($posx, $posy, $p);
-		/*for($i = 0; $i < 3; $i++) {
+echo 'test';
+		for($i = 0; $i < 3; $i++) {
 			$array[$i] = $p->getRow($i);
 		}
 		$x = 0;
 		$y = 0;
-
+echo 'test';
 		$s = '<p><table>';
 		foreach($array as $value =>$v) {
 			$s = $s.'<tr>';
@@ -106,8 +127,12 @@
 			$y = 0;
 			$s = $s."</tr>";
 		}
-		$s = $s.'</table></p>';*/
+		$s = $s.'</table></p>';
 		echo 'piece ajoutée';
+	}
+
+	function putPiece(int $x, int $y, PieceQuantik $p) {
+
 	}
 
 	echo getDebutHTML();
@@ -123,21 +148,9 @@
 		$tN = $tN->initPiecesNoires();
 		$affichepiecesNoires = getDivPiecesDisponibles($tN);
 		echo $affichepiecesNoires;
-	} else if(isset($PiecesDispo)) {
+	} else if(isset($PiecesString)) {
 		$_SESSION['piece'] = $PiecesDispo;
 		echo 'avget';
-		$action = new ActionQuantik($tableau);
-		echo $PiecesDispo;
-		echo $action;
-		echo 'echo';
-		echo $action->isValidePose($posx, $posy, $PiecesDispo);
-		echo 'apA';
-		if(	$action->isValidePose($posx, $posy, $PiecesDispo)){
-			echo 'if1';
-			$action->posePiece($posx, $posy, $PiecesDispo);
-		}
-		echo 'apif';
-		echo 'icicccc';
 		$affichetab = getFormPlateauQuantik($tableau, $PiecesDispo);
 		echo 'apget';
 		echo $affichetab;

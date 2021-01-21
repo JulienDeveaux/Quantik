@@ -51,7 +51,29 @@
 		$res = "";
 		for($i = 0; $i < $a->getTaille(); $i++) {
 			$res = $res."<button type='submit' name='PiecesDispo' value='";
-			$res = $res.$a->getPieceQuantik($i)."' disabled >";
+			if($a->getPieceQuantik($i)->getCouleur() == 0) {			//Blanc
+				if($a->getPieceQuantik($i)->getForme() == 1) {			//Cube
+					$res = $res."0 1";
+				} else if($a->getPieceQuantik($i)->getForme() == 2) {	//Cone
+					$res = $res."0 2";
+				} else if($a->getPieceQuantik($i)->getForme() == 3) {	//Cylindre
+					$res = $res."0 3";
+				} else if($a->getPieceQuantik($i)->getForme() == 4) {	//Sphere
+					$res = $res."0 4";
+				}
+			} else {													//Noir
+				if($a->getPieceQuantik($i)->getForme() == 1) {			//Cube
+					$res = $res."1 1";
+				} else if($a->getPieceQuantik($i)->getForme() == 2) {	//Cone
+					$res = $res."1 2";
+				} else if($a->getPieceQuantik($i)->getForme() == 3) {	//Cylindre
+					$res = $res."1 3";
+				} else if($a->getPieceQuantik($i)->getForme() == 4) {	//Sphere
+					$res = $res."1 4";
+				}
+			}
+			$res = $res.$a->getPieceQuantik($i);
+			$res = $res."' disabled >";
 			$res = $res.$a->getPieceQuantik($i);
 			$res = $res."</button>";
 		}
