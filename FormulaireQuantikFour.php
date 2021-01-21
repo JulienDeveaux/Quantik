@@ -1,4 +1,4 @@
-<form action="FormulaireQuantikThree.php" method ="get">
+<form action="FormulaireQuantikOne.php" method ="get">
 	<?php
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
@@ -38,44 +38,6 @@
 				}
 			}
 			echo 'Selectionner la case où ajouter la piece :'.$PiecesDispo;
-		}  else if (isset($_GET['trio'])) {
-			$String = $_GET['trio'];
-			$Piece = PieceQuantik::initVoid();
-			if($String[0] == 0) {				//Blanc
-				if($String[2] == 1) {			//Cube
-					$Piece = PieceQuantik::initWhiteCube();
-				} else if($String[2] == 2) {	//Cone
-					$Piece = PieceQuantik::initWhiteCone();
-				} else if($String[2] == 3) {	//Cylindre
-					$Piece = PieceQuantik::initWhiteCylindre();
-				} else if($String[2] == 4) {	//Sphere
-					$Piece = PieceQuantik::initWhiteSphere();
-				} else if($String[2] == 0) {	//Vide
-					$Piece = PieceQuantik::initVoid();
-				}
-			} else {							//Noir
-				if($String[0] == 1) {			//Cube
-					$Piece = PieceQuantik::initBlackSphere();
-				} else if($String[2] == 2) {	//Cone
-					$Piece = PieceQuantik::initBlackSphere();
-				} else if($String[2] == 3) {	//Cylindre
-					$Piece = PieceQuantik::initBlackSphere();
-				} else if($String[2] == 4) {	//Sphere
-					$Piece = PieceQuantik::initBlackSphere();
-				}
-			}
-			$posx = (int)$String[4];
-			$posy = (int)$String[6];
-			echo 'posx : '+$posx;
-			echo 'posy : '+$posy;
-			echo $Piece;
-			$action = new ActionQuantik($tableau);
-			if($Piece != PieceQuantik::initVoid() && $action->isValidePose($posx, $posy, $Piece)){
-				$action->posePiece($posx, $posy, $Piece);
-			echo 'piece ajoutée';
-			} else {
-				$erreurPlacement;
-			}
 		}
 	}
 
@@ -168,6 +130,7 @@
 		}
 
 		function getFormPlateauQuantik(PlateauQuantik $pl, PieceQuantik $p):string {
+			echo 'test';
 			for($i = 0; $i < 4; $i++) {
 				$array[$i] = $pl->getRow($i);
 			}
@@ -176,6 +139,7 @@
 			$piece = "";
 
 		if($p->getCouleur() == 0) {					//Blanc
+			echo 'dans if';
 				if($p->getForme() == 1) {			//Cube
 					$piece = $piece."0 1";
 				} else if($p->getForme() == 2) {	//Cone
@@ -243,9 +207,6 @@
 			echo $affichepiecesNoires;
 		} else if(isset($PiecesString)) {
 			$affichetab = getFormPlateauQuantik($tableau, $PiecesDispo);
-			echo $affichetab;
-		} else if(isset($String)) {
-			$affichetab = getFormPlateauQuantik($tableau, $Piece);
 			echo $affichetab;
 		}
 
