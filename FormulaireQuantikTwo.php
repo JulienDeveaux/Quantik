@@ -1,5 +1,5 @@
 
-<form action="FormulaireQuantikTwo.php" method ="get">
+<form action="FormulaireQuantikOne.php" method ="get">
 	<?php
 	include "ActionQuantik.php";
 	session_start();
@@ -49,8 +49,6 @@
 		for($i = 0; $i < 3; $i++) {
 			$array[$i] = $p->getRow($i);
 		}
-		$x = 0;
-		$y = 0;
 
 		$s = '<p><table>';
 		foreach($array as $value =>$v) {
@@ -60,11 +58,8 @@
 					$s = $s."<td>"."<button type='submit' name='PosPlateau' value='".$val."' enabled >".$val."</button>"."</td>";
 				} else {
 					$s = $s."<td>"."<button type='submit' name='PosPlateau' disabled >".$val."</button>"."</td>";
-				}
-				$y++;			
+				}					
 			}
-			$x++;
-			$y = 0;
 			$s = $s."</tr>";
 		}
 		$s = $s.'</table></p>';
@@ -92,56 +87,7 @@
 	} else if(isset($PiecesDispo)) {
 		$affichetab = getDivPlateauQuantik($tableau);
 		echo $affichetab;
-	} else {
-		echo 'Initialisation de la partie';
-		$tableau = new PlateauQuantik();
-		$afficheTab = getDivPlateauQuantik($tableau);
-		echo $afficheTab;
-
-		$tB = new ArrayPieceQuantik();
-		$tB = $tB->initPiecesBlanches();
-		$affichepiecesBlanches = getDivPiecesDisponibles($tB);
-		echo $affichepiecesBlanches;
-		echo "</br>";
-
-		$tN = new ArrayPieceQuantik();
-		$tN = $tN->initPiecesNoires();
-		$affichepiecesNoires = getDivPiecesDisponibles($tN);
-		echo $affichepiecesNoires;
 	}
-
-	/*$cubeBlanc = PieceQuantik::initWhiteCube();
-	$cubeNoir = PieceQuantik::initBlackCube();
-	$coneBlanc = PieceQuantik::initWhiteCone();
-	$coneNoir = PieceQuantik::initBlackCone();
-	$cylindreBlanc= PieceQuantik::initWhiteCylindre();
-	$cylindreNoir = PieceQuantik::initBlackCylindre();
-	$sphereBlanc = PieceQuantik::initWhiteSphere();
-	$sphereNoir = PieceQuantik::initBlackSphere();
-	$cubeBlanc1 = PieceQuantik::initWhiteCube();
-	$cubeNoir1 = PieceQuantik::initBlackCube();
-	$coneBlanc1 = PieceQuantik::initWhiteCone();
-	$coneNoir1 = PieceQuantik::initBlackCone();
-	$cylindreBlanc1= PieceQuantik::initWhiteCylindre();
-	$cylindreNoir1 = PieceQuantik::initBlackCylindre();
-	$sphereBlanc1 = PieceQuantik::initWhiteSphere();
-	$sphereNoir1 = PieceQuantik::initBlackSphere();
-
-	$tB = new ArrayPieceQuantik();
-	$tB = $tB->initPiecesBlanches();
-	$res  = getDivPiecesDisponibles($tB);
-	echo $res;
-	echo "</br>";
-
-	$tN = new ArrayPieceQuantik();
-	$tN = $tN->initPiecesNoires();
-	$res  = getDivPiecesDisponibles($tN);
-	echo $res;
-
-	$tableau = new PlateauQuantik();
-	$tableau->setPiece(0, 0, $cubeBlanc);
-	$res = getDivPlateauQuantik($tableau);
-	echo $res;*/
 
 	$_SESSION['tableau'] = $tableau;
 	echo '</form>';
