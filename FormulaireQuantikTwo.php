@@ -7,8 +7,13 @@
 	if ($_GET) {
 		if (isset($_GET['PosPlateau'])) {
 			$PosPlateau = $_GET['PosPlateau'];
+			$posx = $PosPlateau[0];
+			$posy = $PosPlateau[2];
+			echo 'posx : '+$posx;
+			echo 'posy : '+$posy;
 		} elseif (isset($_GET['PiecesDispo'])) {
 			$PiecesDispo = $_GET['PiecesDispo'];
+			echo $PiecesDispo;
 		}
 	}
 
@@ -42,6 +47,12 @@
 
 	function getFormSelectionPiece(ArrayPieceQuantik $a):string {
 		$res = "";
+		for($i = 0; $i < $a->getTaille(); $i++) {
+			$res = $res."<button type='submit' name='PiecesDispo' value='";
+			$res = $res.$a->getPieceQuantik($i)."' disabled >";
+			$res = $res.$a->getPieceQuantik($i);
+			$res = $res."</button>";
+		}
 		return $res;
 	}
 
@@ -49,26 +60,54 @@
 		for($i = 0; $i < 3; $i++) {
 			$array[$i] = $p->getRow($i);
 		}
+		$x = 0;
+		$y = 0;
 
 		$s = '<p><table>';
 		foreach($array as $value =>$v) {
 			$s = $s.'<tr>';
 			foreach ($v as $key => $val) {
 				if($val == '<p>Vide </p>') {
-					$s = $s."<td>"."<button type='submit' name='PosPlateau' value='".$val."' enabled >".$val."</button>"."</td>";
+					$s = $s."<td>"."<button type='submit' name='PosPlateau' value='".$x." ".$y."' enabled >".$val."</button>"."</td>";
 				} else {
-					$s = $s."<td>"."<button type='submit' name='PosPlateau' disabled >".$val."</button>"."</td>";
-				}					
+					$s = $s."<td>"."<button type='submit' name='PosPlateau' disabled >".$x." ".$y."</button>"."</td>";
+				}
+				$y++;			
 			}
+			$x++;
+			$y = 0;
 			$s = $s."</tr>";
 		}
 		$s = $s.'</table></p>';
 		return $s;
 	}
 
-	function getFormPlateauQuantik(PlateauQuantik $pl, PieceQuantik $p):string {
-		$res = "";
-		return $res;
+	function getFormPlateauQuantik(PlateauQuantik $pl, PieceQuantik $p):void {
+		echo 'TEST';
+		$pl->setPiece($posx, $posy, $p);
+		/*for($i = 0; $i < 3; $i++) {
+			$array[$i] = $p->getRow($i);
+		}
+		$x = 0;
+		$y = 0;
+
+		$s = '<p><table>';
+		foreach($array as $value =>$v) {
+			$s = $s.'<tr>';
+			foreach ($v as $key => $val) {
+				if($val == '<p>Vide </p>') {
+					$s = $s."<td>"."<button type='submit' name='PosPlateau' value='".$x." ".$y."' enabled >".$val."</button>"."</td>";
+				} else {
+					$s = $s."<td>"."<button type='submit' name='PosPlateau' disabled >".$val."</button>"."</td>";
+				}
+				$y++;			
+			}
+			$x++;
+			$y = 0;
+			$s = $s."</tr>";
+		}
+		$s = $s.'</table></p>';*/
+		echo 'piece ajoutée';
 	}
 
 	echo getDebutHTML();
@@ -85,7 +124,22 @@
 		$affichepiecesNoires = getDivPiecesDisponibles($tN);
 		echo $affichepiecesNoires;
 	} else if(isset($PiecesDispo)) {
-		$affichetab = getDivPlateauQuantik($tableau);
+		$_SESSION['piece'] = $PiecesDispo;
+		echo 'avget';
+		$action = new ActionQuantik($tableau);
+		echo $PiecesDispo;
+		echo $action;
+		echo 'echo';
+		echo $action->isValidePose($posx, $posy, $PiecesDispo);
+		echo 'apA';
+		if(	$action->isValidePose($posx, $posy, $PiecesDispo)){
+			echo 'if1';
+			$action->posePiece($posx, $posy, $PiecesDispo);
+		}
+		echo 'apif';
+		echo 'icicccc';
+		$affichetab = getFormPlateauQuantik($tableau, $PiecesDispo);
+		echo 'apget';
 		echo $affichetab;
 	}
 
