@@ -1,16 +1,26 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="style.css" />
-	<title>Quantik</title>
-</head>
-<body>
+
 	<form action="formulaireQuantikTwo.php" method ="get">
 		<?php
 		include "ActionQuantik.php";
-		echo 'test';
 
+
+	   function getDebutHTML():String{
+	        $s = "<!DOCTYPE html> <html lang=\"fr\">
+                    <head>
+                        <title> Page html de test </title>
+	                    <meta charset=\"utf-8\" />
+                          <link rel=\"stylesheet\" href=\"../CSS/style.css\" />
+                             <script src=\"script.js\"></script>
+                    </head>
+            <body>";
+	        return $s;
+	    }
+
+	    function getFinHTML():String{
+	       $s = "</body>
+                </html>";
+	       return $s;
+        }
 		function getDivPiecesDisponibles(ArrayPieceQuantik $a):string {
 			for($i = 0; $i < $a->getTaille; $i++) {
 				$res =  "<button type='submit' name='active' disabled >";
@@ -44,9 +54,9 @@
 		$ta->addPieceQuantik(2);
 		$ta->addPieceQuantik(3);
 		$ta->setPieceQuantik(0, $cubeNoir);
+		echo getDebutHTML();
+		echo getFinHTML();
 		echo 'test';
 		echo $ta;
 		?>
 	</form>
-</body>
-</html>
