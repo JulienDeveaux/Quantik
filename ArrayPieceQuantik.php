@@ -82,7 +82,10 @@ class ArrayPieceQuantik
 
 	public function removePieceQuantik(int $pos): void {
 		$this->taille--;
-		$this->piecesQuantiks[$pos] = null;
+		for($i = $pos; $i < $this->taille; $i++) {
+			$this->piecesQuantiks[$i] = $this->piecesQuantiks[$i+1];
+		}
+		$this->piecesQuantiks[$this->taille+1] = null;
 	}
 }
 ?>

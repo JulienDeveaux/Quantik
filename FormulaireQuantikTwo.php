@@ -1,3 +1,4 @@
+<a href="FormulaireQuantikOne.php">Restart</a>
 <form action="FormulaireQuantikThree.php" method ="get">
 	<?php
 	ini_set('display_errors', 1);
@@ -5,7 +6,26 @@
 	error_reporting(E_ALL);
 	include "ActionQuantik.php";
 	session_start();
-	$tableau = $_SESSION['tableau'];
+	if(!isset($_SESSION['tableau'])) {
+		echo 'issetTableau';
+		$tableau = new PlateauQuantik();
+	} else {
+		$tableau = unserialize($_SESSION['tableau']);
+	}
+	if (!isset($_SESSION['ArrayBlanc'])) {
+		echo 'issetArray Blanc';
+		$tB = new ArrayPieceQuantik();
+		$tB = $tB->initPiecesBlanches();
+	} else {
+		$tB = unserialize($_SESSION['ArrayBlanc']);
+	}
+	if (!isset($_SESSION['ArrayNoir'])) {
+		echo 'issetArray Noir';
+		$tN = new ArrayPieceQuantik();
+		$tN = $tN->initPiecesNoires();
+	} else {
+		$tN = unserialize($_SESSION['ArrayNoir']);
+	}
 	if ($_GET) {
 		if (isset($_GET['PosPlateau'])) {
 			$PosPlateau = $_GET['PosPlateau'];
@@ -14,30 +34,31 @@
 			echo 'posx : '+$posx;
 			echo 'posy : '+$posy;
 		} elseif (isset($_GET['PiecesDispo'])) {
-			$PiecesString = $_GET['PiecesDispo'];
-			$PiecesDispo = PieceQuantik::initVoid();
-			if($PiecesString[0] == 0) {				//Blanc
-				if($PiecesString[2] == 1) {			//Cube
-					$PiecesDispo = PieceQuantik::initWhiteCube();
-				} else if($PiecesString[2] == 2) {	//Cone
-					$PiecesDispo = PieceQuantik::initWhiteCone();
-				} else if($PiecesString[2] == 3) {	//Cylindre
-					$PiecesDispo = PieceQuantik::initWhiteCylindre();
-				} else if($PiecesString[2] == 4) {	//Sphere
-					$PiecesDispo = PieceQuantik::initWhiteSphere();
+			$PiecePosition = $_GET['PiecesDispo'];
+			$PiecePosition = intval($PiecePosition);
+			$PieceNom = $tB->getPieceQuantik($PiecePosition);
+			/*if($PiecePosition[0] == 0) {				//Blanc
+				if($PiecePosition[2] == 1) {			//Cube
+					$PieceNom = PieceQuantik::initWhiteCube();
+				} else if($PiecePosition[2] == 2) {	//Cone
+					$PieceNom = PieceQuantik::initWhiteCone();
+				} else if($PiecePosition[2] == 3) {	//Cylindre
+					$PieceNom = PieceQuantik::initWhiteCylindre();
+				} else if($PiecePosition[2] == 4) {	//Sphere
+					$PieceNom = PieceQuantik::initWhiteSphere();
 				}
 			} else {								//Noir
-				if($PiecesString[0] == 1) {			//Cube
-					$PiecesDispo = PieceQuantik::initBlackSphere();
-				} else if($PiecesString[2] == 2) {	//Cone
-					$PiecesDispo = PieceQuantik::initBlackSphere();
-				} else if($PiecesString[2] == 3) {	//Cylindre
-					$PiecesDispo = PieceQuantik::initBlackSphere();
-				} else if($PiecesString[2] == 4) {	//Sphere
-					$PiecesDispo = PieceQuantik::initBlackSphere();
+				if($PiecePosition[0] == 1) {			//Cube
+					$PieceNom = PieceQuantik::initBlackSphere();
+				} else if($PiecePosition[2] == 2) {	//Cone
+					$PieceNom = PieceQuantik::initBlackSphere();
+				} else if($PiecePosition[2] == 3) {	//Cylindre
+					$PieceNom = PieceQuantik::initBlackSphere();
+				} else if($PiecePosition[2] == 4) {	//Sphere
+					$PieceNom = PieceQuantik::initBlackSphere();
 				}
-			}
-			echo 'Selectionner la case où ajouter la piece :'.$PiecesDispo;
+			}*/
+			echo 'Selectionner la case où ajouter la piece :'.$PieceNom;
 		}  else if (isset($_GET['trio'])) {
 			$String = $_GET['trio'];
 			$Piece = PieceQuantik::initVoid();
@@ -72,7 +93,7 @@
 			$action = new ActionQuantik($tableau);
 			if($Piece != PieceQuantik::initVoid() && $action->isValidePose($posx, $posy, $Piece)){
 				$action->posePiece($posx, $posy, $Piece);
-			echo 'piece ajoutée';
+				echo 'piece ajoutée';
 			} else {
 				$erreurPlacement;
 			}
@@ -173,7 +194,8 @@
 			}
 			$x = 0;
 			$y = 0;
-			$piece = "";
+			global $PiecePosition;
+			/*$piece = "";
 
 		if($p->getCouleur() == 0) {					//Blanc
 				if($p->getForme() == 1) {			//Cube
@@ -195,15 +217,14 @@
 				} else if($p->getForme() == 4) {	//Sphere
 					$piece = $piece."1 4";
 				}
-			}
-			echo 'piece'+$piece;
+			}*/
 
 			$s = '<p><table>';
 			foreach($array as $value =>$v) {
 				$s = $s.'<tr>';
 				foreach ($v as $key => $val) {
 					if($val == '<p>Vide </p>') {
-						$s = $s."<td>"."<button type='submit' name='trio' value='".$piece." ".$x." ".$y."' enabled >".$val."</button>"."</td>";
+						$s = $s."<td>"."<button type='submit' name='trio' value='".$PiecePosition." ".$x." ".$y."' enabled >".$val."</button>"."</td>";
 					} else {
 						$s = $s."<td>"."<button type='submit' name='trio' disabled >".$val."</button>"."</td>";
 					}
@@ -216,17 +237,6 @@
 			$s = $s.'</table></p>';
 			return $s;
 		}
-
-	/*
-		$action = new ActionQuantik($pl);
-		if(	$action->isValidePose($x, $y, $p)){
-			$action->posePiece($x, $y, $p);
-		}
-		echo 'piece ajoutée';
-		if($action->isRowWin(0) or $action->isColWin(0) or $action->isCornerWin(0)){
-			echo " Gagné ";
-		}
-		*/
 
 		echo getDebutHTML();
 
@@ -241,19 +251,17 @@
 			$tN = $tN->initPiecesNoires();
 			$affichepiecesNoires = getDivPiecesDisponibles($tN);
 			echo $affichepiecesNoires;
-		} else if(isset($PiecesString)) {
-			$affichetab = getFormPlateauQuantik($tableau, $PiecesDispo);
+		} else if(isset($PiecePosition)) {
+			$affichetab = getFormPlateauQuantik($tableau, $PieceNom);
 			echo $affichetab;
 		} else if(isset($String)) {
 			$affichetab = getFormPlateauQuantik($tableau, $Piece);
 			echo $affichetab;
 		}
 
-		$_SESSION['tableau'] = $tableau;
+		$_SESSION['tableau'] = serialize($tableau);
+		$_SESSION['ArrayBlanc'] = serialize($tB);
+		$_SESSION['ArrayNoir'] = serialize($tN);
 		echo '</form>';
 		echo getFinHTML();
-		?>
-		<?php
-
-
 		?>

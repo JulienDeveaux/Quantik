@@ -1,3 +1,4 @@
+<a href="FormulaireQuantikOne.php">Restart</a>
 <form action="FormulaireQuantikFour.php" method ="get">
 	<?php
 	ini_set('display_errors', 1);
@@ -5,7 +6,26 @@
 	error_reporting(E_ALL);
 	include "ActionQuantik.php";
 	session_start();
-	$tableau = $_SESSION['tableau'];
+	if(!isset($_SESSION['tableau'])) {
+		echo 'issetTableau';
+		$tableau = new PlateauQuantik();
+	} else {
+		$tableau = unserialize($_SESSION['tableau']);
+	}
+	if (!isset($_SESSION['ArrayNoir'])) {
+		echo 'issetArray Noir';
+		$tN = new ArrayPieceQuantik();
+		$tN = $tN->initPiecesNoires();
+	} else {
+		$tN = unserialize($_SESSION['ArrayNoir']);
+	}
+	if (!isset($_SESSION['ArrayBlanc'])) {
+		echo 'issetArray Blanc';
+		$tB = new ArrayPieceQuantik();
+		$tB = $tB->initPiecesBlanches();
+	} else {
+		$tB = unserialize($_SESSION['ArrayBlanc']);
+	}
 	if ($_GET) {
 		if (isset($_GET['PosPlateau'])) {
 			$PosPlateau = $_GET['PosPlateau'];
@@ -15,7 +35,7 @@
 			echo 'posy : '+$posy;
 		} elseif (isset($_GET['trio'])) {
 			$String = $_GET['trio'];
-			$Piece = PieceQuantik::initVoid();
+			/*$Piece = PieceQuantik::initVoid();
 			if($String[0] == 0) {				//Blanc
 				if($String[2] == 1) {			//Cube
 					$Piece = PieceQuantik::initWhiteCube();
@@ -36,16 +56,17 @@
 				} else if($String[2] == 4) {	//Sphere
 					$Piece = PieceQuantik::initBlackSphere();
 				}
-			}
-			$posx = (int)$String[4];
-			$posy = (int)$String[6];
-			echo 'posx : '+$posx;
-			echo 'posy : '+$posy;
+			}*/
+			$PiecePosition = (int)$String[0];
+			$posx = (int)$String[2];
+			$posy = (int)$String[4];
+			$Piece = $tB->getPieceQuantik($PiecePosition);
 			echo $Piece;
 			$action = new ActionQuantik($tableau);
 			if(	$action->isValidePose($posx, $posy, $Piece)){
 				$action->posePiece($posx, $posy, $Piece);
-			echo 'piece ajoutée';
+				echo 'piece ajoutée';
+				$tB->removePieceQuantik($PiecePosition);
 			} else {
 				$erreurPlacement;
 			}
@@ -73,7 +94,7 @@
 		$res = "";
 		for($i = 0; $i < $a->getTaille(); $i++) {
 			$res = $res."<button type='submit' name='PiecesDispo' value='";
-			if($a->getPieceQuantik($i)->getCouleur() == 0) {			//Blanc
+			/*if($a->getPieceQuantik($i)->getCouleur() == 0) {			//Blanc
 				if($a->getPieceQuantik($i)->getForme() == 1) {			//Cube
 					$res = $res."0 1";
 				} else if($a->getPieceQuantik($i)->getForme() == 2) {	//Cone
@@ -93,8 +114,9 @@
 				} else if($a->getPieceQuantik($i)->getForme() == 4) {	//Sphere
 					$res = $res."1 4";
 				}
-			}
-			$res = $res.$a->getPieceQuantik($i);
+			}*/
+			$res = $res.$i;
+			//$res = $res.$a->getPieceQuantik($i);
 			$res = $res."' enabled >";
 			$res = $res.$a->getPieceQuantik($i);
 			$res = $res."</button>";
@@ -184,17 +206,13 @@
 			
 		} else if(isset($String)) {
 			echo $tableau;
-			$tN = new ArrayPieceQuantik();
-			$tN = $tN->initPiecesNoires();
 			$affichepiecesNoires = getDivPiecesDisponibles($tN);
 			echo $affichepiecesNoires;
 		}
 
-		$_SESSION['tableau'] = $tableau;
+		$_SESSION['tableau'] = serialize($tableau);
+		$_SESSION['ArrayNoir'] = serialize($tN);
+		$_SESSION['ArrayBlanc'] = serialize($tB);
 		echo '</form>';
 		echo getFinHTML();
-		?>
-		<?php
-
-
 		?>

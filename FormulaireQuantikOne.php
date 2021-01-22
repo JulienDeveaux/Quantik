@@ -1,12 +1,33 @@
-<form action="FormulaireQuantikTwo.php" method ="get">
+
+	<a href="TestQuantik.php">Test et Destroy</a>
+	<a href="FormulaireQuantikOne.php">Restart</a>
+	<form action="FormulaireQuantikTwo.php" method ="get">
 	<?php
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
 	include "ActionQuantik.php";
 	session_start();
-	$tableau = $_SESSION['tableau'];
-	$tB = $_SESSION['ArrayBlanc'];
+	if(!isset($_SESSION['tableau'])) {
+		echo 'issetTableau';
+		$tableau = new PlateauQuantik();
+	} else {
+		$tableau = unserialize($_SESSION['tableau']);
+	}
+	if (!isset($_SESSION['ArrayBlanc'])) {
+		echo 'issetArray Blanc';
+		$tB = new ArrayPieceQuantik();
+		$tB = $tB->initPiecesBlanches();
+	} else {
+		$tB = unserialize($_SESSION['ArrayBlanc']);
+	}
+	if (!isset($_SESSION['ArrayNoir'])) {
+		echo 'issetArray Noir';
+		$tN = new ArrayPieceQuantik();
+		$tN = $tN->initPiecesNoires();
+	} else {
+		$tN = unserialize($_SESSION['ArrayNoir']);
+	}
 	if ($_GET) {
 		if (isset($_GET['PosPlateau'])) {
 			$PosPlateau = $_GET['PosPlateau'];
@@ -18,7 +39,7 @@
 			$PiecesDispo = $_GET['PiecesDispo'];
 		} elseif (isset($_GET['trio'])) {
 			$String = $_GET['trio'];
-			$Piece = PieceQuantik::initVoid();
+			/*$Piece = PieceQuantik::initVoid();
 			if($String[0] == 0) {				//Blanc
 				if($String[2] == 1) {			//Cube
 					$Piece = PieceQuantik::initWhiteCube();
@@ -39,16 +60,17 @@
 				} else if($String[2] == 4) {	//Sphere
 					$Piece = PieceQuantik::initBlackSphere();
 				}
-			}
-			$posx = (int)$String[4];
-			$posy = (int)$String[6];
-			echo 'posx : '+$posx;
-			echo 'posy : '+$posy;
+			}*/
+			$PiecePosition = (int)$String[0];
+			$posx = (int)$String[2];
+			$posy = (int)$String[4];
+			$Piece = $tN->getPieceQuantik($PiecePosition);
 			echo $Piece;
 			$action = new ActionQuantik($tableau);
 			if(	$action->isValidePose($posx, $posy, $Piece)){
 				$action->posePiece($posx, $posy, $Piece);
-			echo 'piece ajoutée';
+				echo 'piece ajoutée';
+				$tN->removePieceQuantik($PiecePosition);
 			} else {
 				$erreurPlacement;
 			}
@@ -76,7 +98,7 @@
 		$res = "";
 		for($i = 0; $i < $a->getTaille(); $i++) {
 			$res = $res."<button type='submit' name='PiecesDispo' value='";
-			if($a->getPieceQuantik($i)->getCouleur() == 0) {			//Blanc
+			/*if($a->getPieceQuantik($i)->getCouleur() == 0) {			//Blanc
 				if($a->getPieceQuantik($i)->getForme() == 1) {			//Cube
 					$res = $res."0 1";
 				} else if($a->getPieceQuantik($i)->getForme() == 2) {	//Cone
@@ -96,8 +118,9 @@
 				} else if($a->getPieceQuantik($i)->getForme() == 4) {	//Sphere
 					$res = $res."1 4";
 				}
-			}
-			$res = $res.$a->getPieceQuantik($i);
+			}*/
+			$res = $res.$i;
+			//$res = $res.$a->getPieceQuantik($i);
 			$res = $res."' enabled >";
 			$res = $res.$a->getPieceQuantik($i);
 			$res = $res."</button>";
@@ -109,7 +132,7 @@
 		$res = "";
 		for($i = 0; $i < $a->getTaille(); $i++) {
 			$res = $res."<button type='submit' name='PiecesDispo' value='";
-			if($a->getPieceQuantik($i)->getCouleur() == 0) {			//Blanc
+			/*if($a->getPieceQuantik($i)->getCouleur() == 0) {			//Blanc
 				if($a->getPieceQuantik($i)->getForme() == 1) {			//Cube
 					$res = $res."0 1";
 				} else if($a->getPieceQuantik($i)->getForme() == 2) {	//Cone
@@ -129,8 +152,9 @@
 				} else if($a->getPieceQuantik($i)->getForme() == 4) {	//Sphere
 					$res = $res."1 4";
 				}
-			}
-			$res = $res.$a->getPieceQuantik($i);
+			}*/
+			$res = $res.$i;
+			//$res = $res.$a->getPieceQuantik($i);
 			$res = $res."' disabled >";
 			$res = $res.$a->getPieceQuantik($i);
 			$res = $res."</button>";
@@ -200,63 +224,20 @@
 		$tB = getDivPiecesDisponibles($tB);
 		echo $tB;
 	} else if(isset($String)) {
-		echo 'String';
+		echo 'Main String';
 		echo $tableau;
-		$tB = getDivPiecesDisponibles($tB);
-		echo $tB;
+		echo getDivPiecesDisponibles($tB);
 	} else {
 		echo 'Initialisation de la partie</br>';
-		$tableau = new PlateauQuantik();
 		echo $tableau;
-		/*$afficheTab = getDivPlateauQuantik($tableau);
-		echo $afficheTab;*/
-
-		$tB = new ArrayPieceQuantik();
-		$tB = $tB->initPiecesBlanches();
-		$_SESSION['ArrayBlanc'] = $tB;
-		$affichepiecesBlanches = getDivPiecesDisponibles($tB);
-		echo $affichepiecesBlanches;
+		echo getDivPiecesDisponibles($tB);
+		echo '</br>';
+		echo getFormSelectionPiece($tN);
 	}
 
-	/*$cubeBlanc = PieceQuantik::initWhiteCube();
-	$cubeNoir = PieceQuantik::initBlackCube();
-	$coneBlanc = PieceQuantik::initWhiteCone();
-	$coneNoir = PieceQuantik::initBlackCone();
-	$cylindreBlanc= PieceQuantik::initWhiteCylindre();
-	$cylindreNoir = PieceQuantik::initBlackCylindre();
-	$sphereBlanc = PieceQuantik::initWhiteSphere();
-	$sphereNoir = PieceQuantik::initBlackSphere();
-	$cubeBlanc1 = PieceQuantik::initWhiteCube();
-	$cubeNoir1 = PieceQuantik::initBlackCube();
-	$coneBlanc1 = PieceQuantik::initWhiteCone();
-	$coneNoir1 = PieceQuantik::initBlackCone();
-	$cylindreBlanc1= PieceQuantik::initWhiteCylindre();
-	$cylindreNoir1 = PieceQuantik::initBlackCylindre();
-	$sphereBlanc1 = PieceQuantik::initWhiteSphere();
-	$sphereNoir1 = PieceQuantik::initBlackSphere();
-
-	$tB = new ArrayPieceQuantik();
-	$tB = $tB->initPiecesBlanches();
-	$res  = getDivPiecesDisponibles($tB);
-	echo $res;
-	echo "</br>";
-
-	$tN = new ArrayPieceQuantik();
-	$tN = $tN->initPiecesNoires();
-	$res  = getDivPiecesDisponibles($tN);
-	echo $res;
-
-	$tableau = new PlateauQuantik();
-	$tableau->setPiece(0, 0, $cubeBlanc);
-	$res = getDivPlateauQuantik($tableau);
-	echo $res;*/
-
-	$_SESSION['ArrayBlanc'] = $tB;
-	$_SESSION['tableau'] = $tableau;
+	$_SESSION['ArrayBlanc'] = serialize($tB);
+	$_SESSION['ArrayNoir'] = serialize($tN);
+	$_SESSION['tableau'] = serialize($tableau);
 	echo '</form>';
 	echo getFinHTML();
-	?>
-	<?php
-
-
 	?>
