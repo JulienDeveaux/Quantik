@@ -11,8 +11,6 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 	include "ActionQuantik.php";
-    session_start();
-    session_destroy();
 
     $var = new PlateauQuantik();
     $tab = new PlateauQuantik();
