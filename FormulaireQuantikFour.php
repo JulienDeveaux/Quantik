@@ -1,4 +1,4 @@
-	<a href="restart.php">Restart</a>
+<a href="restart.php">Restart</a>
 	<form action="FormulaireQuantikOne.php" method ="get">
 		<?php
 		ini_set('display_errors', 1);
@@ -164,3 +164,4 @@
 		echo '</form>';
 		echo getFinHTML();
 		?>
+

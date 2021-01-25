@@ -1,7 +1,7 @@
 <?php
 
-include "PlateauQuantik.php";
-include "PieceQuantik.php";
+require_once "PlateauQuantik.php";
+require_once "PieceQuantik.php";
 
 class ArrayPieceQuantik
 {

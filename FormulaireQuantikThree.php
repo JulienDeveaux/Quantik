@@ -72,69 +72,6 @@
 			return $res;
 		}
 
-		function getFormSelectionPiece(ArrayPieceQuantik $a):string {
-			$res = "";
-			for($i = 0; $i < $a->getTaille(); $i++) {
-				$res = $res."<button type='submit' name='PiecesDispo' value='";
-				$res = $res.$a->getPieceQuantik($i)."' disabled >";
-				$res = $res.$a->getPieceQuantik($i);
-				$res = $res."</button>";
-			}
-			return $res;
-		}
-
-		function getDivPlateauQuantik(PlateauQuantik $p):string {
-			for($i = 0; $i < 4; $i++) {
-				$array[$i] = $p->getRow($i);
-			}
-			$x = 0;
-			$y = 0;
-
-			$s = '<p><table>';
-			foreach($array as $value =>$v) {
-				$s = $s.'<tr>';
-				foreach ($v as $key => $val) {
-					if($val == '<p>Vide </p>') {
-						$s = $s."<td>"."<button type='submit' name='PosPlateau' value='".$x." ".$y."' enabled >".$val."</button>"."</td>";
-					} else {
-						$s = $s."<td>"."<button type='submit' name='PosPlateau' disabled >".$x." ".$y."</button>"."</td>";
-					}
-					$y++;			
-				}
-				$x++;
-				$y = 0;
-				$s = $s."</tr>";
-			}
-			$s = $s.'</table></p>';
-			return $s;
-		}
-
-		function getFormPlateauQuantik(PlateauQuantik $pl, PieceQuantik $p):string {
-			for($i = 0; $i < 4; $i++) {
-				$array[$i] = $pl->getRow($i);
-			}
-			$x = 0;
-			$y = 0;
-			global $tableau;
-			$action = new ActionQuantik($tableau);
-			$s = '<p><table>';
-			foreach($array as $value =>$v) {
-				$s = $s.'<tr>';
-				foreach ($v as $key => $val) {
-					if($val == '<p>Vide </p>' and ($action->isValidePose($x, $y, $p))) {
-						$s = $s."<td>"."<button type='submit' name='PosPlateau' value='".$x." ".$y."' enabled >".$val."</button>"."</td>";
-					} else {
-						$s = $s."<td>"."<button type='submit' name='PosPlateau' disabled >".$val."</button>"."</td>";
-					}
-					$y++;			
-				}
-				$x++;
-				$y = 0;
-				$s = $s."</tr>";
-			}
-			$s = $s.'</table></p>';
-			return $s;
-		}
 
 		echo getDebutHTML();
 

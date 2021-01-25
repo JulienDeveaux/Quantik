@@ -84,47 +84,15 @@
 
 		function getDivPlateauQuantik(PlateauQuantik $p):string {
 			for($i = 0; $i < 4; $i++) {
-				$array[$i] = $pl->getRow($i);
-			}
-			$x = 0;
-			$y = 0;
-			$piece = "";
-
-		if($a->getPieceQuantik($i)->getCouleur() == 0) {			//Blanc
-				if($a->getPieceQuantik($i)->getForme() == 1) {			//Cube
-					$piece = $piece."0 1";
-				} else if($a->getPieceQuantik($i)->getForme() == 2) {	//Cone
-					$piece = $piece."0 2";
-				} else if($a->getPieceQuantik($i)->getForme() == 3) {	//Cylindre
-					$piece = $piece."0 3";
-				} else if($a->getPieceQuantik($i)->getForme() == 4) {	//Sphere
-					$piece = $piece."0 4";
-				}
-			} else {													//Noir
-				if($a->getPieceQuantik($i)->getForme() == 1) {			//Cube
-					$piece = $piece."1 1";
-				} else if($a->getPieceQuantik($i)->getForme() == 2) {	//Cone
-					$piece = $piece."1 2";
-				} else if($a->getPieceQuantik($i)->getForme() == 3) {	//Cylindre
-					$piece = $piece."1 3";
-				} else if($a->getPieceQuantik($i)->getForme() == 4) {	//Sphere
-					$piece = $piece."1 4";
-				}
+				$array[$i] = $p->getRow($i);
 			}
 
 			$s = '<p><table>';
 			foreach($array as $value =>$v) {
 				$s = $s.'<tr>';
 				foreach ($v as $key => $val) {
-					if($val == '<p>Vide </p>') {
-						$s = $s."<td>"."<button type='submit' name='trio' value='".$piece." ".$x." ".$y."' enabled >".$val."</button>"."</td>";
-					} else {
-						$s = $s."<td>"."<button type='submit' name='trio' disabled >".$x." ".$y."</button>"."</td>";
-					}
-					$y++;			
+						$s = $s."<td>"."<button type='submit' disabled >".$val."</button>"."</td>";
 				}
-				$x++;
-				$y = 0;
 				$s = $s."</tr>";
 			}
 			$s = $s.'</table></p>';
@@ -162,6 +130,7 @@
 		//echo getDebutHTML();
 
 		if(isset($PiecePosition)) {
+		    echo getDivPlateauQuantik($tableau);
 			$affichetab = getFormPlateauQuantik($tableau, $PieceNom);
 			echo $affichetab;
 		}
