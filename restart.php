@@ -13,6 +13,6 @@
 	session_start();
 	session_destroy();
 	?>
-	<meta http-equiv="refresh" content="0;URL=FormulaireQuantikOne.php" />
+	<meta http-equiv="refresh" content="0;URL=quantik.php" />
 </body>
 </html>
