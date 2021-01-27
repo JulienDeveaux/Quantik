@@ -95,7 +95,6 @@ class QuantikUIGenerator
         $resultat ="";
         for($i = 0; $i < $apq->getTaille(); $i++) {
             $resultat = $resultat."<button type='submit' name='piece' value='$i'";
-            $pos = $i;
             $resultat = $resultat." enabled >";
             $resultat = $resultat.$apq->getPieceQuantik($i);
             $resultat = $resultat."</button>";
@@ -133,10 +132,11 @@ class QuantikUIGenerator
         $x = 0;
         $y = 0;
         $resultat = '<p><table>';
+        $a = new ActionQuantik($_SESSION['plateau']);
         foreach($array as $value =>$v) {
             $resultat = $resultat.'<tr>';
             foreach ($v as $key => $val) {
-                if($val == '<p>Vide </p>') {
+                if($val == '<p>Vide </p>' and ($a->isValidePose($x, $y, $piece))) {
                     $resultat = $resultat."<td>"."<button type='submit' name='piecePosition' value='".$position." ".$x." ".$y."' enabled >".$val."</button>"."</td>";
                 } else {
                     $resultat = $resultat."<td>"."<button type='submit' name='piecePosition' disabled >".$val."</button>"."</td>";
@@ -150,7 +150,7 @@ class QuantikUIGenerator
         $resultat = $resultat.'</table></p>';
 
         // ajout d'un formulaire pour modifier le choix de la pièce à poser
-        $resultat .= self::getFormBoutonAnnuler();
+        $resultat .= self::getFormBoutonAnnuler($piece);
 
         return $resultat;
     }
@@ -158,8 +158,11 @@ class QuantikUIGenerator
     /**
      * @return string
      */
-    public static function getFormBoutonAnnuler() : string {
-        return "<div>  Changer de pièce </br> <button type='submit' name='action' value='annulerChoix' enabled >Annuler</button> </div>";
+    public static function getFormBoutonAnnuler(PieceQuantik $piece) : string {
+        $res = "<div>  Changer la pièce </br>";
+        $res .= $piece;
+        $res .= "<button type='submit' name='action' value='annulerChoix' enabled >Annuler</button> </div>";
+        return $res;
     }
 
     /**
@@ -170,12 +173,12 @@ class QuantikUIGenerator
         /* TODO div annonçant la couleur victorieuse et proposant un lien pour recommencer une nouvelle partie */
 
         $resultat ="";
-        if($couleur = 0){
-            $resultat .= "<div> Les Blancs ont remportés la partie ";
-        }elseif ($couleur = 1){
-            $resultat .=  "<div> Les Noirs ont remportés la partie ";
+        if($couleur == 0){
+            $resultat .= "<div> Les Blancs ont remporté la partie ";
+        }elseif ($couleur == 1){
+            $resultat .=  "<div> Les Noirs ont remporté la partie ";
         }
-        $resultat .= "<\br> Recommencer ".self::getLienRecommencer()."</div>";
+        $resultat .= self::getLienRecommencer()."</div>";
         return $resultat;
     }
 
@@ -183,8 +186,7 @@ class QuantikUIGenerator
      * @return string
      */
     public static function getLienRecommencer():string {
-        session_destroy();
-        return "<p><a href='quantik.php'> Recommencer ?</a></p>";
+        return "<p><a href='quantik.php?action=recommencer'> Recommencer ?</a></p>";
     }
 
     /**
@@ -196,14 +198,12 @@ class QuantikUIGenerator
     public static function getPageSelectionPiece(array $lesPiecesDispos, int $couleurActive, PlateauQuantik $plateau): string {
         $pageHTML = QuantikUIGenerator::getDebutHTML();
         if($couleurActive == 0 ){
-            echo' test 1';
 
             $pageHTML .= self::getDivPiecesDisponibles($lesPiecesDispos[0]);
             $pageHTML .= "<p></br></p>";
             $pageHTML .= self::getFormSelectionPiece($lesPiecesDispos[1]);
 
         }elseif ($couleurActive == 1){
-            echo ' test 2';
 
             $pageHTML .= self::getFormSelectionPiece($lesPiecesDispos[0]);
             $pageHTML .= "<p></br></p>";
@@ -228,7 +228,6 @@ class QuantikUIGenerator
         $pageHTML .= "<form action=\"quantik.php\" method =\"get\">";
         $piece = PieceQuantik::initVoid();
         if($couleurActive == 0 ){
-            echo 'test';
             $pageHTML .= self::getFormSelectionPiece($lesPiecesDispos[0]);
             $pageHTML .= "<p></br></p>";
             $pageHTML .= self::getFormSelectionPiece($lesPiecesDispos[1]);
@@ -239,7 +238,6 @@ class QuantikUIGenerator
             }
 
         }elseif ($couleurActive == 1){
-            echo 'test2';
 
             $pageHTML .= self::getFormSelectionPiece($lesPiecesDispos[0]);
             $pageHTML .= "<p></br></p>";
@@ -271,13 +269,13 @@ class QuantikUIGenerator
         if($couleurActive = 0 ){
 
             $pageHTML .= self::getFormSelectionPiece($lesPiecesDispos[0]);
-            $pageHTML .= "</br>";
+            $pageHTML .= "<p></br></p>";
             $pageHTML .= self::getFormSelectionPiece($lesPiecesDispos[1]);
 
         }elseif ($couleurActive = 1){
 
             $pageHTML .= self::getFormSelectionPiece($lesPiecesDispos[0]);
-            $pageHTML .= "<\br>";
+            $pageHTML .= "<p></br></p>";
             $pageHTML .= self::getFormSelectionPiece($lesPiecesDispos[1]);
         }
 
