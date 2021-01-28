@@ -87,7 +87,7 @@ switch($_SESSION['etat']) {
             }
 
             for($i = 0; $i < 4; $i++) {
-                if ($aq->isRowWin($i) or $aq->isColWin($i) or $aq->isCornerWin($i)) {
+                if ($aq->isRowWin($i) xor $aq->isColWin($i) xor $aq->isCornerWin($i)) {
                     $_SESSION['etat'] = 'victoire';
                     $pageHTML .= '<meta http-equiv="refresh" content="0;URL=quantik.php" />';
                 } else {

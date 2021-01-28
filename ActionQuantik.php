@@ -62,7 +62,11 @@ class ActionQuantik
 
     private static function isComboWin(array $pieces): bool
     {
-        if(in_array(PieceQuantik::initVoid(), $pieces)) {
+        echo $pieces[0];
+        echo $pieces[1];
+        echo $pieces[2];
+        echo $pieces[3];
+        /*if(in_array(PieceQuantik::initVoid(), $pieces)) {
             return false;
         }
 
@@ -70,6 +74,23 @@ class ActionQuantik
                 in_array(PieceQuantik::initBlackCube(),$pieces) xor in_array(PieceQuantik::initWhiteCube(), $pieces) and
                 in_array(PieceQuantik::initBlackCone(),$pieces) xor in_array(PieceQUantik::initWhiteCone(),$pieces) and
                 in_array(PieceQuantik::initBlackCylindre(),$pieces) xor in_array(PieceQuantik::initWhiteCylindre(), $pieces));
+       */
+        for($i = 0; $i < PlateauQuantik::NBROWS; $i++) {
+            $tabP[$i] = false;
+        }
+        for($i = 0; $i < PlateauQuantik::NBROWS; $i++) {
+            $temp = $pieces[$i]->getForme()-1;
+            if($temp > -1) {
+                $tabP[$i] = true;
+            }
+        }
+
+        for($i = 0; $i < PlateauQuantik::NBROWS; $i++) {
+            if($tabP[$i] == false) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public function isRowWin(int $numRow): bool

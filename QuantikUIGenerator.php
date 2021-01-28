@@ -20,7 +20,8 @@ class QuantikUIGenerator
     <head>
         <meta charset='UTF-8'>
         <title>$title</title>
-        <link rel=\"stylesheet\" type=\"text/css\" href=\"quantik.css\" />
+        <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />
+        <link rel='icon' href='favicon.ico' />
     </head>
     <body>
         <h1 class=\"quantik\">$title</h1>
@@ -78,7 +79,12 @@ class QuantikUIGenerator
         foreach($array as $value =>$v) {
             $resultat = $resultat.'<tr>';
             foreach ($v as $key => $val) {
-                $resultat = $resultat."<td>"."<button type='submit' disabled >".$val."</button>"."</td>";
+                //$resultat = $resultat."<td>"."<button class='button plateauinactif' type='submit' disabled >".$val."</button>"."</td>";
+
+                $resultat = $resultat."<td>"."<button class='button plateauinactif forme";
+                $resultat = $resultat.$val->getForme().$val->getCouleur()."' type='submit' disabled ></button>"."</td>";
+
+
             }
             $resultat = $resultat."</tr>";
         }
@@ -94,9 +100,10 @@ class QuantikUIGenerator
     public static function getDivPiecesDisponibles(ArrayPieceQuantik $apq, int $pos = -1): string {
         $resultat ="";
         for($i = 0; $i < $apq->getTaille(); $i++) {
-            $resultat = $resultat."<button type='submit' name='piece' value='$i'";
+            $resultat = $resultat."<button class='button buttonactive forme";
+            $resultat = $resultat.$apq->getPieceQuantik($i)->getForme().$apq->getPieceQuantik($i)->getCouleur()."' type='submit' name='piece' value='$i'";
             $resultat = $resultat." enabled >";
-            $resultat = $resultat.$apq->getPieceQuantik($i);
+            //$resultat = $resultat.$apq->getPieceQuantik($i);
             $resultat = $resultat."</button>";
         }
         $resultat .= '<input type="hidden" name="action" value="choisirPiece"/>';
@@ -110,9 +117,10 @@ class QuantikUIGenerator
     public static function getFormSelectionPiece(ArrayPieceQuantik $apq): string {
         $resultat ="";
         for($i = 0; $i < $apq->getTaille(); $i++) {
-            $resultat = $resultat."<button type='submit' ";
+            $resultat = $resultat."<button class='button buttondesactive forme";
+            $resultat = $resultat.$apq->getPieceQuantik($i)->getForme().$apq->getPieceQuantik($i)->getCouleur()."' type='submit' ";
             $resultat = $resultat."' disabled >";
-            $resultat = $resultat.$apq->getPieceQuantik($i);
+            //$resultat = $resultat.$apq->getPieceQuantik($i);
             $resultat = $resultat."</button>";
         }
         return $resultat;
@@ -131,15 +139,17 @@ class QuantikUIGenerator
         }
         $x = 0;
         $y = 0;
-        $resultat = '<p><table>';
+        $resultat = '<p class="paratab"><table>';
         $a = new ActionQuantik($_SESSION['plateau']);
         foreach($array as $value =>$v) {
             $resultat = $resultat.'<tr>';
             foreach ($v as $key => $val) {
-                if($val == '<p>Vide </p>' and ($a->isValidePose($x, $y, $piece))) {
-                    $resultat = $resultat."<td>"."<button type='submit' name='piecePosition' value='".$position." ".$x." ".$y."' enabled >".$val."</button>"."</td>";
+                if(($a->isValidePose($x, $y, $piece))) {
+                    $resultat = $resultat."<td>"."<button class='button plateau forme";
+                    $resultat = $resultat.$val->getForme().$val->getCouleur()."' type='submit' name='piecePosition' value='".$position." ".$x." ".$y."' enabled ></button>"."</td>";
                 } else {
-                    $resultat = $resultat."<td>"."<button type='submit' name='piecePosition' disabled >".$val."</button>"."</td>";
+                    $resultat = $resultat."<td>"."<button class='button buttondesactive forme";
+                    $resultat = $resultat.$val->getForme().$val->getCouleur()."' type='submit' name='piecePosition' disabled ></button>"."</td>";
                 }
                 $y++;
             }
@@ -160,6 +170,8 @@ class QuantikUIGenerator
      */
     public static function getFormBoutonAnnuler(PieceQuantik $piece) : string {
         $res = "<div>  Changer la pièce </br>";
+        $res .= "<button class='forme";
+        $res .= $piece->getForme().$piece->getCouleur()."' type='submit' disabled ></button>";
         $res .= $piece;
         $res .= "<button type='submit' name='action' value='annulerChoix' enabled >Annuler</button> </div>";
         return $res;

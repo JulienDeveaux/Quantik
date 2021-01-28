@@ -31,7 +31,7 @@
     $sphereBlanc1 = PieceQuantik::initWhiteSphere();
     $sphereNoir1 = PieceQuantik::initBlackSphere();
     
-    $ta = new ArrayPieceQuantik();
+    /*$ta = new ArrayPieceQuantik();
     $ta->addPieceQuantik(0);
     $ta->addPieceQuantik(1);
     $ta->addPieceQuantik(2);
@@ -41,7 +41,7 @@
     echo $initNoir;
     $initBlanc = ArrayPieceQuantik::initPiecesBlanches();
     echo $initBlanc;
-    echo $ta;
+    echo $ta;*/
 
     $cubeNoirtest = PieceQuantik::initBlackCube();
     $cubeBlanctest = PieceQuantik::initWhiteCube();
@@ -54,28 +54,28 @@
 	$var->setPiece(0, 2, $sphereBlanc);
 	$var->setPiece(1, 2, $sphereNoir);*/
 
-
 	$action = new ActionQuantik($tab);
 	if(	$action->isValidePose(0, 0, $cubeBlanc)){
         $action->posePiece(0, 0, $cubeBlanc);
     }
+	echo $tab;
     if($action->isRowWin(0) or $action->isColWin(0) or $action->isCornerWin(0)){
         echo " Gagné ";
     }
-
 
     if( $action->isValidePose(0, 1, $cylindreNoir)){
         $action->posePiece(0, 1, $cylindreNoir);
     }
+    echo $tab;
     if($action->isRowWin(0) or $action->isColWin(0) or $action->isCornerWin(0)){
         echo " Gagné ";
     }
 
-
-    if($action->isValidePose(0, 2, $sphereBlanc)){
+/*    if($action->isValidePose(0, 2, $sphereBlanc)){
 
         $action->posePiece(0, 2, $sphereBlanc);
     }
+          echo $tab;
     if($action->isRowWin(0) or $action->isColWin(2) or $action->isCornerWin(1)){
         echo " Gagné ";
     }
@@ -84,14 +84,16 @@
     if($action->isValidePose(0,3, $coneNoir)){
         $action->PosePiece(0,3, $coneNoir);
     }
+          echo $tab;
     if($action->isRowWin(0) or $action->isColWin(3) or $action->isCornerWin(1)){
         echo " Gagné ici";
-    }      echo $tab;
+    }*/
 
 
     if($action->isValidePose(1,0, $coneBlanc1)){
         $action->PosePiece(1,0,$coneBlanc1);
     }
+    echo $tab;
     if($action->isRowWin(1) or $action->isColWin(0) or $action->isCornerWin(0)){
         echo " Gagné";
     }
@@ -100,9 +102,11 @@
     if(	$action->isValidePose(1, 1, $cubeNoir)){
         $action->posePiece(1, 1, $cubeNoir);
     }
+     echo $tab;
     if($action->isRowWin(1) or $action->isColWin(1) or $action->isCornerWin(0)){
+        echo $action->isCornerWin(0);
            echo " Gagné ici n'est pas normal à revoir";
-    }
+    }/*
 
     echo $tab;
 
@@ -194,7 +198,7 @@
     if ($action->isRowWin(3) or $action->isColWin(3) or $action->isCornerWin(3)) {
         echo " Gagné ";
 
-    }
+    }*/
 
 
 
