@@ -1,8 +1,8 @@
 # Quantik
 
 # Les règles du jeu
-1. Le but est d'être le premier à former une ligne, colonne ou coin contenant toutes les pièces disponibles du jeu quelque soit la couleur
-2. Si une pièce d'une certaine forme est posée, il n'est plus possible de poser un pièce de cette même forme sur la même ligne, colonne et coin où elle à été posée.
+* Le but est d'être le premier à former une ligne, colonne ou coin contenant toutes les pièces disponibles du jeu quelque soit la couleur
+* Si une pièce d'une certaine forme est posée, il n'est plus possible de poser un pièce de cette même forme sur la même ligne, colonne et coin où elle à été posée.
 
 ### Features
 
@@ -13,4 +13,4 @@ Un surlignage des pièces posables permets de savoir à qui est le tour de jouer
 ### Controles
 Pour poser une pièce il faut cliquer sur une pièce disponible dans la selection surlignée en haut puis cliquer sur une case verte du tableau pour la poser.
 
-## Code réalisé en binome par Justine Lemesle et Julien Deveaux
+## Code réalisé en binôme par Justine Lemesle et Julien Deveaux
