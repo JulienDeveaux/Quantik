@@ -15,4 +15,3 @@ Pour poser une pièce il faut cliquer sur une pièce disponible dans la selectio
 Pour annuler le choix de la pièce selectionner un bouton annuler se situe en bas de la page lorsqu'il est possible d'annuler la selection d'une pièce.
 
 ## Code réalisé en binôme par Justine Lemesle et Julien Deveaux
-## Remerciment spécial à Dimitri pour son soutien et son aide ainsi qu'a Dominique Fournier pour l'élaboration de ce sujet un grand merci à vous <3
