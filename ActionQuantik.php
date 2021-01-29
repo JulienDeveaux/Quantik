@@ -25,7 +25,7 @@ class ActionQuantik
         $pieceCol = $this->plateau->getCol($colNum);
         $pieceCorner = $this->plateau->getCorner(PlateauQuantik::getCornerFromCoord($rowNum, $colNum));
 
-        $resultat = $this->isPieceValide($pieceCorner, $piece) and $this->isPieceValide($pieceCol, $piece) and $this->isPieceValide($pieceRow, $piece) ;
+        $resultat = $this->isPieceValide($pieceCorner, $piece) && $this->isPieceValide($pieceCol, $piece) && $this->isPieceValide($pieceRow, $piece) ;
         return $resultat;
     }
 
@@ -66,19 +66,6 @@ class ActionQuantik
 
     private static function isComboWin(array $pieces): bool
     {
-        echo $pieces[0];
-        echo $pieces[1];
-        echo $pieces[2];
-        echo $pieces[3];
-        /*if(in_array(PieceQuantik::initVoid(), $pieces)) {
-            return false;
-        }
-
-        return (in_array(PieceQuantik::initBlackSphere(), $pieces) xor in_array(PieceQuantik::initWhiteSphere(), $pieces) and
-                in_array(PieceQuantik::initBlackCube(),$pieces) xor in_array(PieceQuantik::initWhiteCube(), $pieces) and
-                in_array(PieceQuantik::initBlackCone(),$pieces) xor in_array(PieceQUantik::initWhiteCone(),$pieces) and
-                in_array(PieceQuantik::initBlackCylindre(),$pieces) xor in_array(PieceQuantik::initWhiteCylindre(), $pieces));
-       */
         for($i = 0; $i < PlateauQuantik::NBROWS; $i++) {
             $tabP[$i] = false;
         }
@@ -88,7 +75,6 @@ class ActionQuantik
                 $tabP[$i] = true;
             }
         }
-
         for($i = 0; $i < PlateauQuantik::NBROWS; $i++) {
             if($tabP[$i] == false) {
                 return false;
@@ -117,5 +103,4 @@ class ActionQuantik
         return $this->isComboWin($cor);
     }
 }
-
 ?>

@@ -189,9 +189,9 @@ class QuantikUIGenerator
 
         $resultat ="";
         if($couleur == 0){
-            $resultat .= "<div> Les Blancs ont remporté la partie ";
+            $resultat .= "<div> Les Noirs ont remporté la partie ";
         }elseif ($couleur == 1){
-            $resultat .=  "<div> Les Noirs ont remporté la partie ";
+            $resultat .=  "<div> Les Blancs ont remporté la partie ";
         }
         $resultat .= self::getLienRecommencer()."</div>";
         return $resultat;
@@ -277,13 +277,13 @@ class QuantikUIGenerator
     public static function getPageVictoire(array $lesPiecesDispos, int $couleurActive, PlateauQuantik $plateau): string {
         $pageHTML = QuantikUIGenerator::getDebutHTML()
             . "<form action=\"quantik.php\" method =\"get\">";
-        if($couleurActive = 0 ){
+        if($couleurActive == 0 ){
 
             $pageHTML .= self::getFormSelectionPiece($lesPiecesDispos[0])
                 . "<p></br></p>"
                 . self::getFormSelectionPiece($lesPiecesDispos[1]);
 
-        }elseif ($couleurActive = 1){
+        }elseif ($couleurActive == 1){
 
             $pageHTML .= self::getFormSelectionPiece($lesPiecesDispos[0])
                 . "<p></br></p>"

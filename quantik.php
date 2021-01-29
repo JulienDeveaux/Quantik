@@ -33,7 +33,6 @@ $pageHTML = "";
 $tabPiece[0] = $_SESSION['lesBlancs'];
 $tabPiece[1] = $_SESSION['lesNoirs'];
 $actionQuantik = new ActionQuantik($_SESSION['plateau']);
-$pageHTML .= QuantikUIGenerator::getLienRecommencer();
 
 // on réalise les actions correspondant à l'action en cours :
     try {
@@ -82,23 +81,22 @@ switch($_SESSION['etat']) {
 
                 $tabPiece[1]->removePieceQuantik($_GET['piecePosition'][0]);
             }
-            for($i = 0; $i < 4; $i++) {
-                if ($actionQuantik->isRowWin($i) xor $actionQuantik->isColWin($i) xor $actionQuantik->isCornerWin($i)) {
-                    $_SESSION['etat'] = 'victoire';
-                    $pageHTML .= '<meta http-equiv="refresh" content="0;URL=quantik.php" />';
-                } else {
-                    $_SESSION['etat'] = 'choixPiece';
-                    $pageHTML .= '<meta http-equiv="refresh" content="0;URL=quantik.php?etat=choixPiece" />';
 
+            for($i = 0; $i < 4; $i++) {
+                if ($actionQuantik->isRowWin($i) || $actionQuantik->isColWin($i) || $actionQuantik->isCornerWin($i)) {
+                   $_SESSION['etat'] = 'victoire';
+                   $pageHTML .= '<meta http-equiv="refresh" content="0;URL=quantik.php" />';
                 }
             }
+            if($_SESSION['etat'] != 'victoire'){
+                $_SESSION['etat'] = 'choixPiece';
+            }
+            $pageHTML .= '<meta http-equiv="refresh" content="0;URL=quantik.php?etat=choixPiece" />';
             if($_SESSION['couleurActive'] == 0){
                 $_SESSION['couleurActive'] = 1;
             } elseif($_SESSION['couleurActive'] == 1) {
                 $_SESSION['couleurActive'] = 0;
             }
-
-
         }
 
         break;
