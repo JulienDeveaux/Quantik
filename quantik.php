@@ -32,7 +32,7 @@ $pageHTML = "";
 
 $tabPiece[0] = $_SESSION['lesBlancs'];
 $tabPiece[1] = $_SESSION['lesNoirs'];
-$aq = new ActionQuantik($_SESSION['plateau']);
+$actionQuantik = new ActionQuantik($_SESSION['plateau']);
 $pageHTML .= QuantikUIGenerator::getLienRecommencer();
 
 // on réalise les actions correspondant à l'action en cours :
@@ -73,21 +73,17 @@ switch($_SESSION['etat']) {
         }elseif(isset($_GET['piecePosition'])){
             if($_SESSION['couleurActive'] == 0){
                 $Piece = $tabPiece[0]->getPieceQuantik($_GET['piecePosition'][0]);
-                $aq->posePiece($_GET['piecePosition'][2], $_GET['piecePosition'][4], $Piece);
+               $actionQuantik->posePiece($_GET['piecePosition'][2], $_GET['piecePosition'][4], $Piece);
+
                 $tabPiece[0]->removePieceQuantik($_GET['piecePosition'][0]);
             }elseif($_SESSION['couleurActive'] == 1){
                 $Piece = $tabPiece[1]->getPieceQuantik($_GET['piecePosition'][0]);
-                $aq->posePiece($_GET['piecePosition'][2], $_GET['piecePosition'][4], $Piece);
+                $actionQuantik->posePiece($_GET['piecePosition'][2], $_GET['piecePosition'][4], $Piece);
+
                 $tabPiece[1]->removePieceQuantik($_GET['piecePosition'][0]);
             }
-            if($_SESSION['couleurActive'] == 0){
-                $_SESSION['couleurActive'] = 1;
-            } elseif($_SESSION['couleurActive'] == 1) {
-                $_SESSION['couleurActive'] = 0;
-            }
-
             for($i = 0; $i < 4; $i++) {
-                if ($aq->isRowWin($i) xor $aq->isColWin($i) xor $aq->isCornerWin($i)) {
+                if ($actionQuantik->isRowWin($i) xor $actionQuantik->isColWin($i) xor $actionQuantik->isCornerWin($i)) {
                     $_SESSION['etat'] = 'victoire';
                     $pageHTML .= '<meta http-equiv="refresh" content="0;URL=quantik.php" />';
                 } else {
@@ -96,6 +92,13 @@ switch($_SESSION['etat']) {
 
                 }
             }
+            if($_SESSION['couleurActive'] == 0){
+                $_SESSION['couleurActive'] = 1;
+            } elseif($_SESSION['couleurActive'] == 1) {
+                $_SESSION['couleurActive'] = 0;
+            }
+
+
         }
 
         break;

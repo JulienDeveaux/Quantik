@@ -21,7 +21,6 @@ class PlateauQuantik
 
     public function getPiece(int $rowNum, int $colNum): PieceQuantik
     {
-
         return $this->cases[$rowNum][$colNum];
     }
 
