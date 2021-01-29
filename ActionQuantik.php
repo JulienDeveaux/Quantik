@@ -18,10 +18,14 @@ class ActionQuantik
 
     public function isValidePose(int $rowNum, int $colNum, PieceQuantik $piece): bool
     {
+        if($this->plateau->getPiece($rowNum, $colNum) != PieceQuantik::initVoid()){
+            return false;
+        }
         $pieceRow = $this->plateau->getRow($rowNum);
         $pieceCol = $this->plateau->getCol($colNum);
         $pieceCorner = $this->plateau->getCorner(PlateauQuantik::getCornerFromCoord($rowNum, $colNum));
-        $resultat = $this->isPieceValide($pieceRow, $piece) and $this->isPieceValide($pieceCol, $piece) and $this->isPieceValide($pieceCorner, $piece);
+
+        $resultat = $this->isPieceValide($pieceCorner, $piece) and $this->isPieceValide($pieceCol, $piece) and $this->isPieceValide($pieceRow, $piece) ;
         return $resultat;
     }
 
